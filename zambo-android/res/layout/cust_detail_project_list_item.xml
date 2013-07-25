@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="80dip"
+    android:paddingBottom="4dip"
+    tools:ignore="PxUsage" >
+    
+    <!-- 表格布局 -->  
+			     <TableLayout  
+			        android:layout_width="fill_parent"  
+			        android:layout_height="wrap_content"  
+			        android:paddingLeft="20dip"
+			        android:paddingTop="5dip"
+			        android:paddingRight="20dip"
+			        android:paddingBottom="5dip" >  
+			        
+			          <TableRow  
+			            android:layout_width="fill_parent"  
+			            android:layout_height="wrap_content"  
+			            android:background="@drawable/shape_top_corner_no_bottom_line"  
+			            android:padding="8dip" >  
+			           <TextView  
+			                android:layout_width="wrap_content"  
+			                android:layout_height="wrap_content"  
+			                android:layout_gravity="center_vertical"  
+			                android:layout_marginRight="10dip"  
+			                android:paddingLeft="4dip"
+			                android:text="@string/detail_project" >  
+			            </TextView>
+			            <Spinner 
+			                android:id="@+id/detail_item_project"
+			                android:layout_width="200dip"  
+			                android:layout_height="33dip" 
+			                android:background="@drawable/detail_spinner_click"
+			                android:prompt="@string/detail_project"
+			                android:layout_marginLeft="10dip"
+			                />  
+			        </TableRow>  
+			        
+			        <TableRow  
+			            android:layout_width="fill_parent"  
+			            android:layout_height="wrap_content"  
+			            android:background="@drawable/shape_no_corner_without_bottom"  
+			            android:padding="2dip" >  
+			            <TextView  
+			                android:layout_width="fill_parent"  
+			                android:layout_height="wrap_content"  
+			                android:layout_gravity="center_vertical"  
+			                android:layout_marginRight="18dip"  
+			                android:paddingLeft="9dip"
+			                android:text="@string/detail_status" >  
+			            </TextView>  
+			            <Spinner 
+			                android:id="@+id/detail_item_status"
+			                android:layout_width="200dip"  
+			                android:layout_height="33dip" 
+			                android:background="@drawable/detail_spinner_click"
+			                android:prompt="@string/detail_project"
+			                android:layout_marginLeft="10dip"
+			                />
+			        </TableRow>  
+			        
+			        <TableRow  
+			            android:layout_width="fill_parent"  
+			            android:layout_height="wrap_content"  
+			            android:background="@drawable/shape_no_corner_without_bottom"  
+			            android:padding="2dip" >  
+			            <TextView  
+			                android:layout_width="fill_parent"  
+			                android:layout_height="wrap_content"  
+			                android:layout_gravity="center_vertical"  
+			                android:layout_marginRight="18dip"  
+			                android:paddingLeft="9dip"
+			                android:text="@string/detail_name" >  
+			            </TextView>  
+			            <Spinner 
+			                android:id="@+id/detail_item_name"
+			                android:layout_width="200dip"  
+			                android:layout_height="33dip" 
+			                android:background="@drawable/detail_spinner_click"
+			                android:prompt="@string/detail_project"
+			                android:layout_marginLeft="10dip"
+			                />
+			        </TableRow>  
+			        
+			        <TableRow  
+			            android:layout_width="fill_parent"  
+			            android:layout_height="wrap_content"  
+			            android:background="@drawable/shape_no_corner_without_bottom"  
+			            android:padding="2dip" >  
+			            <TextView  
+			                android:layout_width="fill_parent"  
+			                android:layout_height="wrap_content"  
+			                android:layout_gravity="center_vertical"  
+			                android:layout_marginRight="18dip"  
+			                android:paddingLeft="9dip"
+			                android:text="@string/detail_phone" >  
+			            </TextView>  
+			            <Spinner 
+			                android:id="@+id/detail_item_phone"
+			                android:layout_width="200dip"  
+			                android:layout_height="33dip" 
+			                android:background="@drawable/detail_spinner_click"
+			                android:prompt="@string/detail_project"
+			                android:layout_marginLeft="10dip"
+			                />
+			        </TableRow>  
+			        
+			        <TableRow  
+			            android:layout_width="fill_parent"  
+			            android:layout_height="wrap_content"  
+			            android:background="@drawable/shape_bottom_corner_no_top_line"  
+			            android:padding="5dip" >  
+			        </TableRow> 
+			         
+			    </TableLayout>
+
+</LinearLayout>

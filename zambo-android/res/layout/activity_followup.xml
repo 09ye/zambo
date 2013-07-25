@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_detail"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/detailTitlebar"
+        layout="@layout/titlebar_detail" />
+
+    <ScrollView
+        android:id="@+id/detail_scroll_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detailTitlebar"
+        android:layout_marginBottom="5dip" >
+
+        <LinearLayout
+            android:id="@+id/editLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:padding="10dip"
+                android:text="联系人信息:" />
+
+            <LinearLayout
+                android:id="@+id/linkmans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dip"
+                android:layout_marginRight="5dip"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:text="医院的潜在需求:" />
+
+            <TextView
+                android:id="@+id/potencialdemand"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/bg_textbox"
+                android:drawableRight="@drawable/icon_arrow_right"
+                android:gravity="center_vertical"
+                android:hint="必填" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="拜访情况:" />
+
+                <TextView
+                    android:id="@+id/threshold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:textColor="@color/light_grey"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/bg_textbox"
+                android:gravity="top|left"
+                android:hint="512字符以内"
+                android:inputType="textMultiLine"
+                android:minHeight="120dip"
+                android:paddingLeft="10dip"
+                android:textSize="@dimen/text_medium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dip"
+                android:paddingRight="20dip" >
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="发现客户新需求 通知我的团队:" />
+
+                <CheckBox
+                    android:id="@+id/notify_team"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:button="@null"
+                    android:drawableRight="@drawable/check_btn" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/notifycontent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/bg_textbox"
+                android:drawableRight="@drawable/icon_arrow_right"
+                android:enabled="false"
+                android:gravity="center_vertical"
+                android:hint="选择通知内容" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

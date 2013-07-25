@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+        <LinearLayout
+            android:id="@+id/customerInfoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imgMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:src="@drawable/icon_map" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15px"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地址"
+                    android:textColor="@color/grey"
+                    android:textSize="13sp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="14sp" >
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10px"
+                    android:text="下次拜访时间"
+                    android:textColor="@color/grey"
+                    android:textSize="13sp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvNextPlanTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=""
+                    android:textSize="14sp" >
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/customerInfoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20px"
+            android:gravity="center_horizontal" >
+
+            <include
+                android:id="@+id/btnReport"
+                android:layout_width="130px"
+                android:layout_height="41px"
+                layout="@layout/widget_customimagebutton" />
+
+            <include
+                android:id="@+id/btnShare"
+                android:layout_width="130px"
+                android:layout_height="41px"
+                android:layout_marginLeft="20px"
+                layout="@layout/widget_customimagebutton" />
+
+            <include
+                android:id="@+id/btnAddProject"
+                android:layout_width="130px"
+                android:layout_height="41px"
+                android:layout_marginLeft="20px"
+                layout="@layout/widget_customimagebutton"
+                android:visibility="gone" />
+        </LinearLayout>
+     <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="20px"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btnProjectRecordList"
+                style="@style/CustomTabButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="项目列表" />
+
+            <Button
+                android:id="@+id/btnFollowupList"
+                style="@style/CustomTabButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="客户随访记录" />
+        </LinearLayout>
+    
+
+</LinearLayout>

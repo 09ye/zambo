@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_detail"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/detailTitlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/titlebar_detail" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/detailTitlebar"
+        android:layout_marginBottom="@dimen/padding_large"
+        android:layout_marginLeft="@dimen/padding_large"
+        android:layout_marginRight="@dimen/padding_large"
+        android:layout_marginTop="@dimen/padding_large"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收件人："
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/text_medium" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:gravity="center_vertical"
+            >
+
+            <EditText
+                android:id="@+id/editTextRecever"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:enabled="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:layout_marginBottom="@dimen/padding_small"
+                android:layout_marginTop="@dimen/padding_small"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_medium" >
+
+                <requestFocus />
+            </EditText>
+
+            <Button
+                android:id="@+id/btnEmployee"
+                style="@style/CustomNormalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_small"
+                android:layout_marginLeft="@dimen/padding_small"
+                android:layout_marginTop="@dimen/padding_small"
+                android:text="选择" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_small"
+           android:layout_marginTop="@dimen/padding_small"
+            android:text="内容："
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/text_medium" />
+
+        <EditText
+            android:id="@+id/editTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/padding_large"
+            android:layout_marginTop="@dimen/padding_small"
+            android:gravity="top"
+            android:hint="请输入指令内容"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/text_medium" />
+    </LinearLayout>
+
+</RelativeLayout>

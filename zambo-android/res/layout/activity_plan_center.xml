@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_detail"
+    android:orientation="horizontal" >
+
+    <include
+        android:id="@+id/detailTitlebar"
+        layout="@layout/titlebar_detail" />
+
+   <fragment
+       android:layout_margin="@dimen/padding_small"
+        android:id="@+id/content"
+        android:layout_below="@+id/detailTitlebar"
+        android:name="com.mobilitychina.siemens.business.plan.PlanCenterFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

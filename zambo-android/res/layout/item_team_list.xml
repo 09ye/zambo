@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mobilitychina.siemens.widget.WeekVisitTeamItem xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:paddingBottom="5px"
+        android:paddingLeft="10px"
+        android:paddingRight="10px"
+        android:paddingTop="5px" >
+
+        <ImageView
+            android:id="@+id/ivTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_team" >
+        </ImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="10px"
+            android:layout_toRightOf="@id/ivTeam"
+            android:layout_weight="0.1"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="名称(职位名)"
+                android:textSize="@dimen/text_medium_1"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5px"
+                android:singleLine="true"
+                android:text="查看团队A下属情况"
+                android:textSize="@dimen/text_medium" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_arrow_right" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivSeperator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10px"
+        android:layout_marginRight="10px"
+        android:src="@drawable/icon_seperator_line" />
+
+</com.mobilitychina.siemens.widget.WeekVisitTeamItem>

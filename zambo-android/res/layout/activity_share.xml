@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_detail"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/detailTitlebar"
+        layout="@layout/titlebar_detail" />
+
+    <ScrollView
+        android:id="@+id/detail_scroll_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detailTitlebar"
+        android:layout_marginBottom="5dip" >
+
+        <LinearLayout
+            android:id="@+id/editLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/detail_huibao_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dip"
+                android:paddingLeft="20dip"
+                android:paddingTop="10dip"
+                android:text="分享内容" />
+
+            <TableLayout
+                android:id="@+id/report_table"
+                android:layout_width="match_parent"
+                android:layout_height="312dp"
+                android:paddingBottom="5dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" >
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_textbox"
+                    android:padding="5dip" >
+
+                    <EditText
+                        android:id="@+id/etContent"
+                        android:layout_width="270dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dip"
+                        android:background="@null"
+                        android:focusable="true"
+                        android:gravity="top"
+                        android:inputType="textMultiLine"
+                        android:minLines="5"
+                        android:paddingLeft="10dip" 
+                        android:textSize="@dimen/text_medium" 
+                        >
+                    </EditText>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

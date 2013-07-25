@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130px"
+        android:layout_marginTop="407px"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/salescode"
+            android:layout_width="200dp"
+            android:layout_height="35dp"
+            android:inputType="phone"
+            android:minWidth="200dip"
+            android:singleLine="true"
+            android:textSize="@dimen/text_medium_1" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/LoginEditText"
+            android:layout_width="200dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="2dip"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:inputType="textPassword"
+            android:minWidth="200dip"
+            android:singleLine="true"
+            android:textSize="@dimen/text_medium_1" >
+        </EditText>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" >
+
+            <Button
+                android:id="@+id/commit"
+                style="@style/CustomNormalButton"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5px"
+                android:gravity="center"
+                android:text="登录"
+                android:textSize="@dimen/text_medium_1"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnPassForget"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:gravity="center"
+                android:text="忘记密码"
+                android:textColor="#FFEFF0E2"
+                android:textSize="@dimen/text_medium_1"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/settingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:paddingBottom="10dp"
+        android:paddingRight="20dp"
+        android:text="登录选项"
+        android:textColor="#FFEFF0E2"
+        android:textSize="@dimen/text_medium_1"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnHelp"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_alignBaseline="@+id/settingButton"
+        android:layout_alignBottom="@+id/settingButton"
+        android:layout_alignParentLeft="true"
+        android:background="@null"
+        android:gravity="center"
+        android:text="使用帮助"
+        android:textColor="#FFEFF0E2"
+        android:textSize="@dimen/text_medium_1"
+        android:textStyle="bold" />
+
+</RelativeLayout>

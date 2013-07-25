@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFEFF0E2"
+    android:orientation="vertical"
+    tools:context=".home.HomeFragment" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="30dip"
+        android:paddingRight="30dip"
+        android:paddingTop="10dip">
+
+        <TextView
+            android:id="@+id/tvTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="chenwangB1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="，欢迎您回来！" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="30dip"
+        android:paddingRight="30dip"
+        android:paddingTop="50dip" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/btnTodayActive"
+                android:layout_width="120dip"
+                android:layout_height="110dip"
+                android:background="#ffcccccc"
+                android:text="今日任务"
+                android:textColor="#ff000000"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnPlanCenter"
+                android:layout_width="120dip"
+                android:layout_height="110dip"
+                android:layout_marginLeft="20dip"
+                android:background="#ffcccccc"
+                android:text="计划中心"
+                android:textColor="#ff000000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip" >
+
+            <Button
+                android:id="@+id/btnCustomerCenter"
+                android:layout_width="120dip"
+                android:layout_height="110dip"
+                android:background="#ffcccccc"
+                android:text="客户中心"
+                android:textColor="#ff000000"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnUserCenter"
+                android:layout_width="120dip"
+                android:layout_height="110dip"
+                android:layout_marginLeft="20dip"
+                android:background="#ffcccccc"
+                android:text="我的中心"
+                android:textColor="#ff000000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip" >
+
+            <Button
+                android:id="@+id/btnMyKpi"
+                android:layout_width="120dip"
+                android:layout_height="110dip"
+                android:background="#ffcccccc"
+                android:text="我的绩效"
+                android:textColor="#ff000000"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dip"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <Button
+                        android:id="@+id/btnProductList"
+                        android:layout_width="55dip"
+                        android:layout_height="50dip"
+                        android:background="#ffcccccc"
+                        android:text="产品列表"
+                        android:textColor="#ff000000"
+                        android:textSize="13sp" />
+
+                    <Button
+                        android:id="@+id/btnSetting"
+                        android:layout_width="55dip"
+                        android:layout_height="50dip"
+                        android:layout_marginLeft="10dip"
+                        android:background="#ffcccccc"
+                        android:text="设置"
+                        android:textColor="#ff000000"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip" >
+
+                    <Button
+                        android:id="@+id/btnHelp"
+                        android:layout_width="55dip"
+                        android:layout_height="50dip"
+                        android:background="#ffcccccc"
+                        android:text="帮助"
+                        android:textColor="#ff000000"
+                        android:textSize="13sp" />
+
+                    <Button
+                        android:id="@+id/btnLogout"
+                        android:layout_width="55dip"
+                        android:layout_height="50dip"
+                        android:layout_marginLeft="10dip"
+                        android:background="#ffcccccc"
+                        android:text="退出"
+                        android:textColor="#ff000000"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layWrapper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/txtSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/custName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="客户名称"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/text_medium" >
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:text="本月拜访次数"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/text_small" >
+            </TextView>
+
+            <include
+                android:id="@+id/progressVisitNum"
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                layout="@layout/widget_progressbar"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip" />
+
+            <TextView
+                android:id="@+id/visited_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:text="本月拜访次数"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/modify_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="上次拜访时间"
+            android:textColor="@color/text_light"
+            android:textSize="@dimen/text_small" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/location"
+        style="@style/CustomNormalButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="10dip"
+        android:focusable="false"
+        android:gravity="center_vertical|right"
+        android:padding="10dip"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/calendar_title_background"
+        android:visibility="visible" />
+
+</LinearLayout>

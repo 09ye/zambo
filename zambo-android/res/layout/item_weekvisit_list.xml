@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mobilitychina.siemens.widget.WeekVisitListItem xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:paddingBottom="5px"
+        android:paddingLeft="10px"
+        android:paddingRight="10px"
+        android:paddingTop="5px" >
+
+        <LinearLayout
+            android:layout_width="32px"
+            android:layout_height="30px" >
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5px"
+            android:layout_marginRight="10px"
+            android:layout_weight="0.1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="名称(职位名)"
+                android:textSize="@dimen/text_medium_1"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/stringbaifancishu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24px"
+                    android:layout_marginTop="5px"
+                    android:text="拜访率"
+                    android:textSize="@dimen/text_medium" />
+
+                <include
+                    android:id="@+id/progressVisitNum"
+                    android:layout_width="100px"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/title"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginTop="12px"
+                    android:layout_toRightOf="@id/stringbaifancishu"
+                    layout="@layout/widget_progressbar" />
+
+                <TextView
+                    android:id="@+id/tvVisitRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24px"
+                    android:layout_below="@id/title"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginTop="5px"
+                    android:layout_toRightOf="@id/progressVisitNum"
+                    android:text="3/4"
+                    android:textSize="@dimen/text_medium" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnOpenPlan"
+            style="@style/CustomNormalButton"
+            android:layout_width="100px"
+            android:layout_height="45px"
+            android:layout_marginTop="7px"
+            android:text="查看计划" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivSeperator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10px"
+        android:layout_marginRight="10px"
+        android:src="@drawable/icon_seperator_line" />
+
+</com.mobilitychina.siemens.widget.WeekVisitListItem>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_header_title"
+    android:background="@null"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:textColor="@color/textcolor1"
+    android:text="2012年"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    android:paddingTop="5px"
+    android:paddingBottom="5px"
+    android:paddingLeft="14px"/>

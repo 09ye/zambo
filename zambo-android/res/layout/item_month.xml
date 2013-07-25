@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout01"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:paddingLeft="10px"
+        android:paddingRight="10px" >
+
+        <TextView
+            android:id="@+id/tvMonth"
+            android:layout_width="180dp"
+            android:layout_height="34dp"
+            android:layout_centerVertical="true"
+            android:gravity="fill_vertical|center_horizontal|fill_horizontal|center"
+            android:layout_marginLeft="20px"
+            android:text="1月"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/ivSelected"
+            android:layout_width="44dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5px"
+            android:src="@drawable/icon_selected" />
+        <ImageView
+            android:id="@+id/ivSeperator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/icon_seperator_line" />
+    </RelativeLayout>
+
+</RelativeLayout>

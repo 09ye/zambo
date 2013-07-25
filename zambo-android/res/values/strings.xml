@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">西门子医疗客户拜访</string>
+    <string name="app_title">Sales Management</string>
+    <string name="err_network">网络异常,请重试</string>
+    <string name="confirm">确定</string>
+    
+    <string name="mainpage">首页</string>
+    <string name="visitDetail">详情</string>
+    <string name="visitItemDetail">团队</string>
+    <string name="back">返回</string>
+    <!-- Strings for mine message -->
+    <string name="mineMessage">我的中心</string>
+    <string name="mineITeam">我的团队</string>
+    <string name="str_wdjx">我的绩效</string>
+    <string name="sendMessTitle">标题</string>
+    <string name="sendMessContext">内容</string>
+    <string name="empty_sendmess">发送内容不能为空</string>
+    <string name="err_sendmess">发送失败</string>
+    <string name="success_sendmess">发送成功</string>
+    <string name="info2">编辑信息</string>
+    <string name="versions">版本信息</string>
+    <string name="switch_server">设置</string>
+    <string name="reply_detail">回复情况</string>
+    <string name="messagelist_no_message">没有信息</string>
+    <string name="emplist_no_emp">没有人员信息</string>
+    <string name="visitrate">当月拜访进度</string>
+    <string name="message_refuse">不参加</string>
+    <string name="message_ok">参加</string>
+    <string name="rep_read_commit">已读</string>
+    <string name="see_reply">查看回复</string>
+    <string name="empty_emp">请选择所需要下达的人员。</string>
+    <string name="compMessage">我的消息</string>
+    <string name="meetingMess">会议通知：2012年7月20号请到西门子总部开会.</string>
+    <string name="reps_mess_false_err_network">无法联网,回复失败.</string>
+    <string name="reps_mess_success">回复成功.</string>
+    <string name="reps_mailmess_success">请求成功,请稍查看邮件.</string>
+    <string name="reps_mailmess_false_err_network">无法联网,请求失败.</string>
+    <string name="btnrefresh">Refresh</string>
+    <string name="btn_modify_psw">重置</string>
+    <string name="btn_update">更新</string>
+    <string name="plan_visit_perfence">计划拜访进度：</string>
+    <string name="messagetypefilter">消息过滤配置</string>
+    <string name="messfilter">过滤</string>
+    <string name="nolistMess">暂无拜访计划</string>
+    <string name="noproductMess">暂无进行中项目</string>
+    <string name="title_hy">会议通知</string>
+    <string name="title_zl">上级指令</string>
+    <string name="title_xx">其他消息</string>
+    <string name="btninbox">收件箱</string>
+    <string name="btnoutbox">发件箱</string>
+    <!-- Strings for actionbar -->
+    <string name="actionbar_setting">修改密码</string>
+    <string name="actionbar_Iteam">我的团队:</string>
+    <string name="teams_visted">项目进度</string>
+    <string name="to_teams_mess">下达指令</string>
+    <string name="to_send">发送</string>
+    <string name="writesth">指令内容</string>
+    <string name="messagelist_waiting">消息更新中...</string>
+    <string name="messlist_waiting">消息更新中...</string>
+    <string name="messlist_loading">消息加载中...</string>
+    <string name="emplist_waiting">人员更新中...</string>
+    <string name="emplist_loading">人员加载中...</string>
+    <string name="repok_commit">参加</string>
+    <string name="refuse_commit">不参加</string>
+    <string name="showParentEmp">上级</string>
+
+    <!-- Strings for login activity -->
+    <string name="login_salescode">Sales code:</string>
+    <string name="login_password">Password:</string>
+    <string name="login_commit">登录</string>
+    <string name="modify_password_commit">确定</string>
+    <string name="old_password">旧密码:</string>
+    <string name="new_password">新密码:</string>
+    <string name="confirm_password">确认密码:</string>
+    <string name="login_err_title">登录失败</string>
+    <string name="login_err_identity">账号或密码错误,请重试.</string>
+    <string name="login_err_no_register_identity">设备号不匹配.</string>
+    <string name="login_err_save_login_user">保存用户失败.</string>
+    <string name="login_err_deviceid_in_use">您的设备已绑定其他手机号码.</string>
+    <string name="login_err_network">网络异常,请重试.</string>
+    <string name="login_err_overdue">您的软件版本号已过期，无法登陆系统.</string>
+    
+    <string name="login_succuss_err_network">Fail to connect to network, login offline.</string>
+    <string name="login_btn_ok">OK</string>
+    <string name="login_err_nophone">您没有输入手机号</string>
+    <string name="login_err_nopassword">您没有输入密码</string>
+
+    <!-- Strings for titlebar -->
+    <string name="titlebar_back">Back</string>
+    <string name="titlebar_home">Home</string>
+
+    <!-- Strings for home activity -->
+
+    <string name="home_top_bar">Welcome, ^1! Good luck today!</string>
+    <string name="home_sync_started">Synchronization started...</string>
+    <string name="home_sync_running">Synchronization already running...</string>
+    <string name="home_sync_finished">Synchronization finished!</string>
+    <string name="home_sync_failed">Synchronization failed, please check your network!</string>
+
+    <!-- Strings for error messages -->
+    <string name="network_error">Networking fails, please check wifi or GPRS
+		connection</string>
+
+    <!-- 星期 -->
+    <string name="Mon">一</string>
+    <string name="Tue">二</string>
+    <string name="Wed">三</string>
+    <string name="Thu">四</string>
+    <string name="Fri">五</string>
+    <string name="Sat">六</string>
+    <string name="Sun">日</string>
+
+    <!-- Strings for detail -->
+    <string name="old_product_title">项目列表</string>
+    <string name="detail_save">保存</string>
+    <string name="detail_project">项目:</string>
+    <string name="detail_name">被拜访人:</string>
+    <string name="detail_phone">电话:</string>
+    <string name="detail_status">项目状态:</string>
+    <string name="custBaifangcishu">拜访次数:</string>
+    <string name="detail_genjin">特定项目</string>
+    <string name="detail_huibao">汇报:</string>
+    <string name="detail_fenxiang">分享:</string>
+    <string name="custlist_title">我的客户</string>
+    <string name="cust_status">客户状态:</string>
+    <string name="cust_baifangcishu">当月计划次数:</string>
+    <string name="cust_oldDate">上次拜访时间:</string>
+    <string name="cust_planDate">计划拜访时间:</string>
+    <string name="save">保存</string>
+    <string name="cust_detail_title">项目进度</string>
+    <string name="add_project">添加</string>
+    <string name="planlist_title">今日拜访</string>
+    <string name="detail_old_visit">目前没有随访记录</string>
+    <string name="modify_pss">修改密码</string>
+    <string name="detail_visitDate">拜访时间:</string>
+    <string name="add_project_val">项目</string>
+    <string name="add_project_val_click"></string>
+    <string name="add_status_val">项目状态</string>
+    <string name="add_status_val_click"></string>
+    <string name="add_project_title">添加项目</string>
+    <string name="add_project_save_btn">提交</string>
+    <string name="detail_people">联系人:</string>
+    <string name="uncheck">uncheck</string>
+    <string name="checked">checked</string>
+    <string name="detail_add_project_info">所选项目信息</string>
+    <string name="cust_visitedbaifancishu">已经完成拜访:</string>
+    <string name="detail_kehubaifang_info">添加项目:</string>
+    <string name="add_project_beizhu_string">备注:</string>
+    <string name="add_project_beizhu_string_old">上次备注信息:</string>
+    <string name="shop_detail_0_1">正常计划</string>
+    <string name="shop_detail_0_2">临时计划</string>
+    <string name="plan_select">计划类型选择</string>
+    <string name="vist_select">拜访类型选择</string>
+    <string name="week_cust">本周</string>
+    <string name="today_cust">今日</string>
+    <string name="his_visit_situation">累计拜访情况</string>
+    <string name="cust_type_select">拜访医院的类型</string>
+    <string name="c1">c1医院</string>
+    <string name="c2">c2医院</string>
+    <string name="c3">c3医院</string>
+    <string name="c4">c4医院</string>
+    <string name="cust_select">医院类型选择</string>
+    <string name="cust_type_select1">医院类型</string>
+    <string name="qiandao">签到</string>
+    <string name="follow_up">跟进</string>
+    <string name="follow_up_mark">随访备注</string>
+    <string name="main_server">生产服务器</string>
+    <string name="test_server">测试服务器</string>
+    <string name="isWorking">正在运行</string>
+    <string name="detail_edit">评论</string>
+    <string name="detail_report">汇报</string>
+    <string name="detail_share">分享</string>
+    <string name="comment_edit">保存</string>
+    <string name="comment_title">评论信息</string>
+    <string name="cust_edit">更新</string>
+    <string name="custlist_select">医院选择</string>
+    <string name="report_object">选择汇报对象</string>
+    <string name="add_project_category_all">全部</string>
+    <string name="no_report_object_info">没有汇报对象</string>
+
+</resources>

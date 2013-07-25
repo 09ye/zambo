@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_detail"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/detailTitlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/titlebar_detail" />
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/detailTitlebar"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/mVersion"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.00"
+                android:paddingLeft="30dip"
+                android:paddingTop="18dip"
+                android:textSize="@dimen/text_medium_1" />
+
+            <TextView
+                android:id="@+id/mVersionDate"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="30dip"
+                android:paddingTop="18dip"
+                android:textSize="@dimen/text_medium_1" />
+
+            <TextView
+                android:id="@+id/serverVersion"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="30dip"
+                android:paddingTop="18dip"
+                android:textSize="@dimen/text_medium_1" />
+
+            <TextView
+                android:id="@+id/serverVersionDate"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="30dip"
+                android:paddingTop="18dip"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

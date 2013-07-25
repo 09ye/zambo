@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_detail"
+    tools:ignore="PxUsage" >
+
+    <include
+        android:id="@+id/detailTitlebar"
+        layout="@layout/titlebar_detail" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/detailTitlebar"
+        android:orientation="vertical"
+        android:paddingBottom="20px"
+        android:paddingLeft="20px"
+        android:paddingRight="24px"
+        android:paddingTop="10px" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <fragment
+                android:id="@+id/webViewKpi"
+                android:name="com.mobilitychina.siemens.business.kpi.KpiFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

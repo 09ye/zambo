@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mobilitychina.siemens.widget.CustomerListItem xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    tools:ignore="PxUsage" >
+  
+      
+
+        
+        
+        
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80px" >
+        
+      <ImageView
+            android:id="@+id/ivFavorite"
+            android:layout_width="wrap_content"
+            android:minWidth="30px"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10px"
+            android:background="@null"
+            android:src="@drawable/icon_favorite"
+            android:focusable="false"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="26px"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="50px"
+            android:layout_marginTop="10px"
+            android:layout_toRightOf="@id/ivFavorite"
+            android:text="客户名称"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/text_medium" />
+
+        <TextView
+            android:id="@+id/stringbaifancishu"
+            android:layout_width="wrap_content"
+            android:layout_height="24px"
+            android:layout_below="@+id/title"
+            android:layout_marginLeft="10px"
+            android:layout_marginTop="5px"
+            android:layout_toRightOf="@id/ivFavorite"
+            android:text="本月拜访次数"
+            android:textColor="@color/text_light"
+            android:textSize="@dimen/text_small" />
+
+        <include
+            android:id="@+id/progressVisitNum"
+            android:layout_width="100px"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="12px"
+            android:layout_toRightOf="@id/stringbaifancishu"
+            layout="@layout/widget_progressbar" />
+
+        <TextView
+            android:id="@+id/tvVisitNum"
+            android:layout_width="wrap_content"
+            android:layout_height="24px"
+            android:layout_below="@id/title"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="5px"
+            android:layout_toRightOf="@id/progressVisitNum"
+            android:text="3/4"
+            android:textColor="@color/text_light"
+            android:textSize="@dimen/text_small" />
+
+        <ImageView
+            android:id="@+id/ivYearVisit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="50px"
+            android:src="@drawable/icon_annual"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20px"
+            android:src="@drawable/icon_arrow_right"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ivCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20px"
+            android:background="@null"
+            android:src="@drawable/check_btn"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/ivSeperator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="10px"
+            android:src="@drawable/icon_seperator_line" />
+    </RelativeLayout>
+</com.mobilitychina.siemens.widget.CustomerListItem>

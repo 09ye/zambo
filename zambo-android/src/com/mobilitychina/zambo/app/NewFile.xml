@@ -1,0 +1,243 @@
+<SoapObject type="" >
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3525" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="其他" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3520" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="副院长" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3508" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="科副主任" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3509" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="主任医师" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3510" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="副主任医师" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3511" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="主治医师" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3512" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="副主治医师" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3513" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="医师、住院医师" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3514" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="主任技师" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3515" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="副主任技师" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3516" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="主管技师" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3517" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="技师" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3518" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="药剂师" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3519" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="院长" >
+        </SoapPrimitive>
+    </SoapObject>
+
+    <SoapObject type="item" >
+
+        <SoapObject type="beizhu" >
+        </SoapObject>
+
+        <SoapPrimitive
+            type="itemId"
+            value="3507" >
+        </SoapPrimitive>
+
+        <SoapPrimitive
+            type="itemName"
+            value="科主任" >
+        </SoapPrimitive>
+    </SoapObject>
+
+</SoapObject>

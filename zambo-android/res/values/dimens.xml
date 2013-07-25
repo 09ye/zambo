@@ -1,0 +1,17 @@
+<resources>
+
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="valesmall">2dp</dimen>
+    <dimen name="hivalue">20dp</dimen>
+    <dimen name="value2">26dp</dimen>
+    <dimen name="value3">28dp</dimen>
+    <dimen name="value1">1dp</dimen>
+    <dimen name="value4">80dp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_medium_1">16sp</dimen>
+    <dimen name="text_medium">13sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+
+</resources>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mobilitychina.siemens.widget.MessageItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout01"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        
+        android:orientation="vertical" >
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_marginLeft="84px"
+            android:layout_width="1px"
+            android:layout_height="110dp"
+            android:background="@color/text_light"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/ItemTitle"
+                android:layout_width="70px"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingTop="@dimen/padding_small"
+                android:text="smstype"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_medium" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:paddingTop="@dimen/padding_small"
+                android:src="@drawable/icon_timelinedot" />
+
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="4dip"
+                android:paddingLeft="12dip"
+                android:paddingRight="12dip"
+                android:paddingTop="@dimen/padding_small" >
+
+                <TextView
+                    android:id="@+id/ItemSource"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:text="itemtitle"
+                    android:textColor="@color/text_dark"
+                    android:textSize="@dimen/text_medium" />
+
+                <TextView
+                    android:id="@+id/ItemText"
+                    android:padding="@dimen/padding_small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100px"
+                    android:layout_below="@id/ItemSource"
+                    android:layout_toLeftOf="@+id/btnGone"
+                    android:background="@color/message_content_bg"
+                    android:text="itemtext"
+                    android:textColor="@color/text_dark"
+                    android:textSize="@dimen/text_medium" />
+
+                <TextView
+                    android:id="@+id/smsTotalId"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ItemSource"
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_refuse"
+                    style="@style/CustomNormalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/ItemText"
+                    android:layout_alignRight="@+id/ItemSource"
+                    
+                    android:text="@string/refuse_commit"
+                    android:textSize="14dp" 
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_repok"
+                   	style="@style/CustomNormalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/ItemText"
+                    android:layout_toLeftOf = "@+id/button2"
+                    android:text="@string/repok_commit"
+                    android:textSize="14dp" 
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_see_reply"
+                    style="@style/CustomNormalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/ItemText"
+                    android:layout_alignRight="@+id/ItemSource"
+                    android:text="@string/see_reply"
+                    android:textSize="14dp" 
+                      android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_read"
+                    style="@style/CustomNormalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/ItemText"
+                    android:layout_alignRight="@+id/ItemSource"
+                    android:text="@string/rep_read_commit"
+                    android:textSize="14dp" 
+                    android:visibility="gone" />
+ 				 <Button
+                    android:id="@+id/btnGone"
+                   
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/ItemText"
+                    android:layout_alignRight="@+id/ItemSource"
+                    android:text="@string/rep_read_commit"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/listsize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/ItemText"
+                    android:textSize="10dp" />
+
+                <ImageView
+                    android:id="@+id/more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toLeftOf="@id/listsize"
+                    android:paddingRight="5dp"
+                    android:src="@drawable/arrow_down" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</com.mobilitychina.siemens.widget.MessageItemView>

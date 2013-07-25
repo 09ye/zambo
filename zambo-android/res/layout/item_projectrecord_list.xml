@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mobilitychina.siemens.widget.ProjectRecordListItem xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    tools:ignore="PxUsage" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="100px"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8px"
+            android:text="12月9日"
+            android:textColor="@color/textcolor1"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/seperatorImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:layout_toRightOf="@id/tvDate"
+            android:background="@drawable/icon_timelinedot" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="10px"
+            android:layout_toRightOf="@id/seperatorImageView"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="320px"
+                android:layout_height="30px" >
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="谈判招标"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <!-- <ImageView
+                    android:id="@+id/test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/title"
+                    android:layout_marginLeft="10px"
+                    android:layout_marginTop="12px"
+                    android:layout_toRightOf="@id/stringbaifancishu"
+                    android:src="@drawable/icon_progress_test" />
+
+                <TextView
+                    android:id="@+id/tvStatusPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10px"
+                    android:layout_marginTop="5px"
+                    android:text="35%"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp" /> -->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5px"
+                android:background="@drawable/bg_timeline_content" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/tvRemark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5px"
+                        android:layout_marginRight="5px"
+                        android:layout_marginTop="5px"
+                        android:text="测试备注测试备注测试备注测试备注测试备注"
+                        android:textColor="@color/textcolor1"
+                        android:textSize="14sp" />
+
+                   <!--  <Button
+                        style="@style/CustomNormalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30px"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/tvRecordDetail"
+                        android:layout_marginRight="2px"
+                        android:paddingLeft="5px"
+                        android:paddingRight="5px"
+                        android:text="+展开" /> -->
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</com.mobilitychina.siemens.widget.ProjectRecordListItem>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_detail"
+    android:orientation="vertical"
+    tools:ignore="PxUsage" >
+
+    <include
+        android:id="@+id/detailTitlebar"
+        layout="@layout/titlebar_detail" />
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="20px"
+        android:paddingLeft="8px"
+        android:paddingRight="8px" >
+
+        <RelativeLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="60px"
+            android:background="#ffffffff"
+            android:paddingLeft="12px"
+            android:paddingRight="12px" >
+
+            <Button
+                android:id="@+id/btnCatetory"
+                android:layout_width="50px"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="#00000000"
+                android:text="全部"
+                android:textColor="#ff515B6D"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8px"
+                android:layout_toRightOf="@+id/btnCatetory"
+                android:src="@drawable/icon_arrow_down" />
+
+            <EditText
+                android:id="@+id/etProjectSearch"
+                style="@style/TitleText"
+                android:layout_width="337px"
+                android:layout_height="44px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_search_border"
+                android:completionThreshold="1"
+                android:hint="搜索120个项目"
+                android:paddingLeft="20px"
+                android:singleLine="true"
+                android:textColor="@color/text"
+                android:textSize="15sp" />
+
+            <ImageButton
+                android:id="@+id/btnClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8px"
+                android:background="@null"
+                android:src="@drawable/icon_clear"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@android:id/list"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#ffffffff"
+                android:cacheColorHint="#00000000"
+                android:divider="@null"
+                android:fastScrollEnabled="true"
+                android:scrollbarStyle="insideOverlay" >
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

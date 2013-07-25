@@ -1,0 +1,156 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_detail"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/detailTitlebar"
+        layout="@layout/titlebar_detail" />
+
+    <RelativeLayout
+        android:id="@+id/projectInfoLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="70px"
+        android:layout_below="@id/detailTitlebar"
+        android:paddingLeft="14px"
+        android:paddingRight="14px" >
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="100px"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:paddingLeft="10px"
+            android:paddingRight="10px" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="项目编号"
+                android:textColor="@color/grey"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tvNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="190"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/seperatorImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10px"
+            android:layout_toRightOf="@id/layout"
+            android:src="@drawable/icon_seperator_line_v" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="10px"
+            android:layout_toRightOf="@id/seperatorImageView"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="项目名称"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/projectInfoLayout"
+        android:layout_marginTop="10px"
+        android:gravity="center_horizontal" >
+
+        <include
+            android:id="@+id/btnReport"
+            android:layout_width="130px"
+            android:layout_height="41px"
+            layout="@layout/widget_customimagebutton" />
+
+        <include
+            android:id="@+id/btnShare"
+            android:layout_width="130px"
+            android:layout_height="41px"
+            android:layout_marginLeft="20px"
+            layout="@layout/widget_customimagebutton" />
+
+        <include
+            android:id="@+id/btnUpdate"
+            android:layout_width="130px"
+            android:layout_height="41px"
+            android:layout_marginLeft="20px"
+            layout="@layout/widget_customimagebutton" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tipsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonLayout"
+        android:layout_marginLeft="14px"
+        android:layout_marginTop="20px"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:text="项目进度"
+            android:textColor="@color/textcolor"
+            android:textSize="@dimen/text_medium_1"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="14px"
+            android:src="@drawable/bg_seperator_line_green" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutRecord"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tipsLayout"
+        android:layout_marginBottom="14px"
+        android:layout_marginLeft="14px"
+        android:layout_marginRight="14px" >
+
+        <LinearLayout
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="131px"
+            android:layout_marginTop="50px"
+            android:background="@drawable/icon_dotline_v" />
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:cacheColorHint="#00000000"
+            android:divider="@null"
+            android:fastScrollEnabled="true"
+            android:scrollbarStyle="insideOverlay" >
+        </ListView>
+    </RelativeLayout>
+
+</RelativeLayout>

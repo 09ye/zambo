@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_detail"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/detailTitlebar"
+        layout="@layout/titlebar_detail" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+
+            <Button
+                android:id="@+id/btnTeam"
+                style="@style/CustomTabButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择团队" />
+
+            <Button
+                android:id="@+id/btnEmployee"
+                style="@style/CustomTabButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择个人" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#ffffffff"
+            android:cacheColorHint="#00000000"
+            android:divider="@null"
+            android:layout_marginLeft="@dimen/padding_large"
+            android:layout_marginRight="@dimen/padding_large"
+            android:fastScrollEnabled="true"
+            android:scrollbarStyle="insideOverlay" >
+        </ListView>
+    </LinearLayout>
+
+</LinearLayout>

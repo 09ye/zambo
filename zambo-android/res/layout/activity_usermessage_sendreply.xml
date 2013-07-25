@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_detail"
+    android:orientation="vertical" >
+  <include
+        android:id="@+id/detailTitlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/titlebar_detail" />
+    
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/padding_large"
+        android:layout_marginLeft="@dimen/padding_large"
+        android:layout_marginRight="@dimen/padding_large"
+        android:layout_marginTop="@dimen/padding_large"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/TextDarkMedium"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="发送于:" />
+
+            <TextView
+                android:id="@+id/txtSendTime"
+                style="@style/TextDarkMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送时间:" />
+        </LinearLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/TextDarkMedium"
+                 android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="收件人:" />
+
+            <TextView
+                android:id="@+id/txtRecive"
+                style="@style/TextDarkMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收件人:" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/list_div" />
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/TextDarkMedium"
+                 android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="内容:" />
+
+            <TextView
+                android:id="@+id/txtContent"
+                style="@style/TextDarkMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="内容:" />
+        </LinearLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/TextDarkMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="指令接收回执"
+                android:textColor="@color/calendar_title_background" />
+        </LinearLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/list_div_green" />
+        </LinearLayout>
+>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/TextDarkMedium"
+                 android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="已读:" />
+
+            <TextView
+                android:id="@+id/txtReaded"
+                style="@style/TextDarkMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已读:" />
+        </LinearLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/TextDarkMedium"
+                 android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="未读:" />
+
+            <TextView
+                android:id="@+id/txtUnRead"
+                style="@style/TextDarkMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="未读:" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
