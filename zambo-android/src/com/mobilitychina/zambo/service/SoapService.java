@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 
 import com.mobilitychina.net.SoapTask;
+import com.mobilitychina.util.Log;
 import com.mobilitychina.zambo.app.ZamboApplication;
 import com.mobilitychina.zambo.util.CommonUtil;
 import com.mobilitychina.zambo.util.ConfigDefinition;
@@ -77,12 +78,22 @@ public class SoapService {
 	public static final String GET_NOTICE_MESS = "getSiemensNoticeContentMess";
 	public static final String GER_RECORD_SENDEWAIT_MESS_BY_TYPE = "recordSendWaitMessByType";
 	
-	public static void switchServer(boolean isMainServer) {
-		if (isMainServer) {
+	public static void switchServer(int isMainServer) {
+		switch(isMainServer){
+		case 0:
 			SOAP_URL = MAIN_OPENAPIURL + OPENAPI_PATH;
-		} else {
+			break;
+		case 1:
 			SOAP_URL = TEST_OPENAPIURL + OPENAPI_PATH;
+			break;
+		case 2:
+			
+			SOAP_URL = UserInfoManager.getInstance().getDefinitUrl();
+//			Log.d("SoapActivity", UserInfoManager.getInstance().getDefinitUrl());
+			break;
+		
 		}
+		
 	}
 
 	/**
@@ -96,7 +107,8 @@ public class SoapService {
 	 */
 	public static SoapTask getLoginTask(Context context, String name, String password, String deviceid) {
 		SoapTask task = new SoapTask(context);
-		task.setUrl("http://192.168.11.100:8080/TestWeb/TestServlet");
+		System.out.println("url"+SOAP_URL);
+		task.setUrl(SOAP_URL);
 		JSONObject json = new JSONObject();
 		JSONObject message = new JSONObject();
 		try {

@@ -31,7 +31,7 @@ public class ConfigDefinition {
 	
 	
 	
-	public static final String PREFS_DATA = "siemensdata";
+	public static final String PREFS_DATA = "zambodata";
 	public static final String PREFS_LASTPHONE = "salesphone";
 	public static final String PREFS_LASTPW = "salespasswd";
 	public static final String PREFS_NAME = "salesname";

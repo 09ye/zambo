@@ -267,7 +267,7 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 							TodayFragment.this.getActivity());
 					McLogger.getInstance().addLog(MsLogType.TYPE_SYS,MsLogType.ACT_LOCATION,"定位成功:距离超出,弹出询问"+";CID:"+checkInPlanInfo.getId());
 					builder.setTitle("提示");
-					builder.setMessage("您当前的位置信息显示您离客户距离较远。\n如果您确已经到达客户所在地，可上传目前的GPS信息以供人工审核，或者稍后再试"+ (CommonUtil.isMainServer(this.getActivity()) == true? "":"\n<目标:("+String.valueOf(info.getLatitude())+","+String.valueOf(info.getLongitude())+")\n定位:("+latitude+","+longitude+")\n精度:"+accuracy+"\n相距大约:"+(int)distance/1000+"km>\n"+locationReason));
+					builder.setMessage("您当前的位置信息显示您离客户距离较远。\n如果您确已经到达客户所在地，可上传目前的GPS信息以供人工审核，或者稍后再试"+ (CommonUtil.isMainServer(this.getActivity()) == 0? "":"\n<目标:("+String.valueOf(info.getLatitude())+","+String.valueOf(info.getLongitude())+")\n定位:("+latitude+","+longitude+")\n精度:"+accuracy+"\n相距大约:"+(int)distance/1000+"km>\n"+locationReason));
 					builder.setNegativeButton("取消", null);
 					builder.setPositiveButton("上传",
 							new DialogInterface.OnClickListener() {
@@ -287,7 +287,7 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 					Builder builder = new Builder(
 							TodayFragment.this.getActivity());
 					builder.setTitle("提示");
-					builder.setMessage("系统显示您当前的位置与客户距离超出允许范围，请检查您的位置或稍后再试。"+ (CommonUtil.isMainServer(this.getActivity()) == true? "":"\n<目标:("+String.valueOf(info.getLatitude())+","+String.valueOf(info.getLongitude())+")\n定位:("+latitude+","+longitude+")\n精度:"+accuracy+"\n相距大约:"+(int)distance/1000+"km>\n"+locationReason));
+					builder.setMessage("系统显示您当前的位置与客户距离超出允许范围，请检查您的位置或稍后再试。"+ (CommonUtil.isMainServer(this.getActivity()) == 0? "":"\n<目标:("+String.valueOf(info.getLatitude())+","+String.valueOf(info.getLongitude())+")\n定位:("+latitude+","+longitude+")\n精度:"+accuracy+"\n相距大约:"+(int)distance/1000+"km>\n"+locationReason));
 					builder.setNegativeButton("取消",null);
 					builder.show();
 					Statistics.sendEvent("visit", "checkin", "faraway", (long) 0);  

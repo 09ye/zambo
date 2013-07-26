@@ -33,7 +33,7 @@ public class BaseActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		if (this.shouldShowTestMark()) {
-			if (!CommonUtil.isMainServer(this)) {
+			if (CommonUtil.isMainServer(this)==0) {
 				this.setTestInfoHidden(false);
 			}
 		}

@@ -46,6 +46,12 @@ public class UserInfoManager {
 	 */
 	private String favoriteId;
 	
+	/**
+	 * 自定义url
+	 */
+	private String definitUrl;
+	
+	
 	private static UserInfoManager _instance;
 
 	public static synchronized UserInfoManager getInstance() {
@@ -81,6 +87,9 @@ public class UserInfoManager {
 			}
 			if (favoriteId != null) {
 				editor.putString("favoriteId", favoriteId);
+			}
+			if (definitUrl != null) {
+				editor.putString("definitUrl", definitUrl);
 			}
 			editor.commit();
 		} else {
@@ -148,6 +157,15 @@ public class UserInfoManager {
 
 	public void setFavoriteId(String favoriteId) {
 		this.favoriteId = favoriteId;
+	}
+	
+
+	public String getDefinitUrl() {
+		return definitUrl;
+	}
+
+	public void setDefinitUrl(String definitUrl) {
+		this.definitUrl = definitUrl;
 	}
 
 	public void print() {

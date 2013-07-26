@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
@@ -17,12 +18,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.style.BulletSpan;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.mobilitychina.crash.CrashHandler;
 import com.mobilitychina.intf.ITaskListener;
@@ -109,13 +113,13 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 		this.setContentView(R.layout.activity_login);
 		btnHelp = (Button) findViewById(R.id.btnHelp);
 		btnHelp.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				DownloadHelper helper = new DownloadHelper(LoginActivity.this);
+				DownloadHelper helper = 	new DownloadHelper(LoginActivity.this);
 				helper.start("http://eiip.mobilitychina.com/cvms_2_0_Viedo.mp4");
 				sendEvent("login", "help", "", 0);
+				
 			}
 		});
 		etSalescode = (EditText) findViewById(R.id.salescode);
@@ -184,6 +188,7 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == REQUEST_CODE_SWITCHSERVER) {
+			
 			this.initServer();
 		}
 	}
@@ -195,6 +200,7 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 	private void initServer() {
 		// 初始化WebService的服务器
 		CommonUtil.switchServer(this, CommonUtil.isMainServer(this));
+		
 	}
 
 	@Override

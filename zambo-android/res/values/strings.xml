@@ -168,6 +168,7 @@
     <string name="follow_up_mark">随访备注</string>
     <string name="main_server">生产服务器</string>
     <string name="test_server">测试服务器</string>
+    <string name="definit_server">自定义服务器</string>
     <string name="isWorking">正在运行</string>
     <string name="detail_edit">评论</string>
     <string name="detail_report">汇报</string>

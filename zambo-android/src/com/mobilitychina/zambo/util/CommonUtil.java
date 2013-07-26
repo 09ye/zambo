@@ -97,13 +97,13 @@ public class CommonUtil {
 		}
 	}
 
-	public static boolean isMainServer(Context context) {
-		return context.getSharedPreferences(ConfigDefinition.PREFS_DATA, 0).getBoolean("switchMainServer", true);
+	public static int isMainServer(Context context) {
+		return context.getSharedPreferences(ConfigDefinition.PREFS_DATA, 0).getInt("switchMainServer", 0);
 	}
 
-	public static void switchServer(Context context, boolean isMainServer) {
+	public static void switchServer(Context context, int isMainServer) {
 		SharedPreferences.Editor editor = context.getSharedPreferences(ConfigDefinition.PREFS_DATA, 0).edit();
-		editor.putBoolean("switchMainServer", isMainServer);
+		editor.putInt("switchMainServer", isMainServer);
 		editor.commit();
 		SoapService.switchServer(isMainServer);
 	}

@@ -20,7 +20,7 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="153dp"
+            android:layout_height="250dp"
             android:paddingBottom="5dip"
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
@@ -29,7 +29,7 @@
             <RadioGroup
                 android:id="@+id/switchServerRadioGroup"
                 android:layout_width="320dp"
-                android:layout_height="152dp"
+                android:layout_height="162dp"
                 android:background="@drawable/add_project_item"
                 android:paddingLeft="10dip" >
 
@@ -47,6 +47,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_medium"
                     android:text="@string/test_server" />
+                <RadioButton
+                    android:id="@+id/definitServerRadio"
+                    android:layout_width="264dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_medium"
+                    android:text="@string/definit_server" />
             </RadioGroup>
         </RelativeLayout>
     </LinearLayout>
