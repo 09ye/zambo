@@ -21,7 +21,7 @@
         android:paddingTop="10px" >
         <fragment 
             android:id="@+id/fragmentCustomerDetail"
-            android:name="com.mobilitychina.siemens.business.customer.CustomerDetailFragment"
+            android:name="com.mobilitychina.zambo.business.customer.CustomerDetailFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"  />
         </LinearLayout>
@@ -42,13 +42,13 @@
 
             <fragment
                 android:id="@+id/fragmentProjectRecordList"
-                android:name="com.mobilitychina.siemens.business.record.ProjectListFragment"
+                android:name="com.mobilitychina.zambo.business.record.ProjectListFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
             <fragment
                 android:id="@+id/fragmentFollowupList"
-                android:name="com.mobilitychina.siemens.business.record.FollowupListFragment"
+                android:name="com.mobilitychina.zambo.business.record.FollowupListFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </FrameLayout>

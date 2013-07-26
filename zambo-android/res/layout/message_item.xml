@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mobilitychina.siemens.widget.MessageItemView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mobilitychina.zambo.widget.MessageItemView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RelativeLayout01"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
@@ -159,4 +159,4 @@
         </LinearLayout>
     </RelativeLayout>
 
-</com.mobilitychina.siemens.widget.MessageItemView>
+</com.mobilitychina.zambo.widget.MessageItemView>

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login" >
+    android:background="@drawable/bg_login"
+    tools:ignore="HardcodedText" >
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130px"
-        android:layout_marginTop="407px"
+        android:layout_marginLeft="87dp"
+        android:layout_marginTop="313dp"
         android:orientation="vertical" >
 
         <EditText
@@ -47,7 +49,7 @@
                 style="@style/CustomNormalButton"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
-                android:layout_marginLeft="5px"
+                android:layout_marginLeft="5dp"
                 android:gravity="center"
                 android:text="登录"
                 android:textSize="@dimen/text_medium_1"
@@ -73,7 +75,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@null"
-        android:paddingBottom="10dp"
+        android:paddingBottom="20dp"
         android:paddingRight="20dp"
         android:text="登录选项"
         android:textColor="#FFEFF0E2"

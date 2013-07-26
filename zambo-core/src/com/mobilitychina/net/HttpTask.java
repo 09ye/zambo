@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -16,11 +17,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
@@ -49,11 +52,24 @@ public class HttpTask extends Task {
 	private int statusCode;
 	private static final int TIME_OUT = 30000;
 	private HttpUriRequest httpRequest;
+	private HttpPost request;
+	private String postBodys;
 
 	public HttpTask(Context context) {
 		super(context);
 	}
 	
+	
+	public String getPostBodys() {
+		return postBodys;
+	}
+
+
+	public void setPostBodys(String postBodys) {
+		this.postBodys = postBodys;
+	}
+
+
 	public String getMethod() {
 		return method;
 	}
@@ -88,22 +104,14 @@ public class HttpTask extends Task {
 
 	@Override
 	protected Object doInBackground() {
-		HttpParams httpParams = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(httpParams, TIME_OUT);
-		HttpConnectionParams.setSoTimeout(httpParams, TIME_OUT);
-		HttpClient httpClient = new DefaultHttpClient(httpParams);
-		try {
-			this.httpRequest = this.getUriRequest();
-			HttpResponse response = httpClient.execute(this.httpRequest);
-			this.statusCode = response.getStatusLine().getStatusCode();
-			HttpEntity entity = response.getEntity();
-			this.result = EntityUtils.toByteArray(entity);
-			entity.consumeContent();
-
-			this.responseHeaders = new ArrayList<NameValuePair>(8);
-			for (Header h : response.getAllHeaders()) {
-				this.responseHeaders.add(new BasicNameValuePair(h.getName(), h.getValue()));
-			}
+	try {
+		request = new HttpPost(this.getUrl());
+		StringEntity entity = new StringEntity(postBodys, HTTP.UTF_8);
+		entity.setContentType("application/json");
+		this.request.setEntity(entity);
+		HttpResponse response = new DefaultHttpClient().execute(request);
+		this.statusCode = response.getStatusLine().getStatusCode();
+	    this.result = EntityUtils.toString(response.getEntity(),HTTP.UTF_8);
 		} catch (Exception e) {
 			this.error = e;
 			this.taskStatus = TaskStatus.FAILED;

@@ -13,7 +13,13 @@ import java.util.concurrent.TimeUnit;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.kobjects.xml.XmlReader;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
@@ -59,6 +65,7 @@ public class SoapTask extends Task {
 
 	private String soapNamespace;
 	private String soapMethod;
+	private String postString;
 
 	private CacheType cacheType;
 
@@ -70,6 +77,15 @@ public class SoapTask extends Task {
 
 	protected ThreadPoolExecutor getThreadPoolExecutor() {
 		return executor;
+	}
+	
+
+	public String getPostString() {
+		return postString;
+	}
+
+	public void setPostString(String postString) {
+		this.postString = postString;
 	}
 
 	public List<NameValuePair> getParams() {
@@ -243,72 +259,20 @@ public class SoapTask extends Task {
 	}
 
 	protected Object doInBackground() {
-		HttpTransportSE ht = getHttpTransportSE(url);
-		ht.debug = true;
-		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-
-		//envelope.dotNet = true;
-		SoapObject rpc = new SoapObject(soapNamespace, soapMethod);
-		for (NameValuePair param : this.params) {
-			rpc.addProperty(param.getName(), param.getValue());
-		}
-		envelope.bodyOut = rpc;
-		Element[] header = new Element[1];
-		header[0] = new Element().createElement(soapNamespace, "SoapHeader");
-
-		Element version = new Element().createElement(soapNamespace, "version");
-		version.addChild(Node.TEXT, Environment.getInstance().getVersion());
-		Element token = new Element().createElement(soapNamespace, "token");
-		token.addChild(Node.TEXT, Environment.getInstance().getToken());
-		header[0].addChild(Node.ELEMENT, version);
-		header[0].addChild(Node.ELEMENT, token);
-		envelope.headerOut = header;
-		Log.i(TAG, rpc.toString());
-
-		try {
-			ht.call(null, envelope);
-			//ht.call(soapNamespace + "/" + soapMethod, envelope);
+	try{
+	    HttpPost request = new HttpPost(this.getUrl());
+		StringEntity entity = new StringEntity(postString, HTTP.UTF_8);
+		entity.setContentType("application/json");
+		request.setEntity(entity);
+		HttpResponse response = new DefaultHttpClient().execute(request);
+		int statusCode = response.getStatusLine().getStatusCode();
+	    this.result = EntityUtils.toString(response.getEntity(),HTTP.UTF_8);
 		} catch (Exception e) {
 			this.error = e;
 			this.taskStatus = TaskStatus.FAILED;
 			return null;
 		}
-		Object result = null;
-		try {
-		//	SoapObject result1 = (SoapObject) envelope.bodyIn;
-        //    String name = result1.getProperty(0).toString();
-			
-			result = envelope.getResponse();
-			if (result != null) {
-				String temp = result.toString();
-				Log.i(TAG, temp.substring(0, temp.length() > 256 ? 256 : temp.length() - 1));
-			} else {
-				Log.e(TAG, "空返回");
-			}
-		} catch (SoapFault e) {
-			this.error = e;
-			this.taskStatus = TaskStatus.FAILED;
-			Log.e(TAG, e.toString());
-			return null;
-		} finally {
-		}
 		this.taskStatus = TaskStatus.FINISHED;
-
-		if (result != null && this.cacheType != CacheType.DISABLE) {
-			CacheTask addCacheTask = new CacheTask(this.context, this.cacheType);
-			addCacheTask.setUrl(this.generateCacheKey());
-			addCacheTask.setCacheMethod(CacheMethod.PUT);
-			//SoapFormatter sf = 
-			//SoapObject on = new SoapObject("", "");
-			StringBuilder sb = new StringBuilder();
-			if(result.getClass() == SoapObject.class){
-				
-				soapObjectToXml(null,(SoapObject)result,sb);
-			}
-			addCacheTask.setCacheData(sb.toString().getBytes());
-			addCacheTask.start();
-		}
-
 		return result;
 	}
 

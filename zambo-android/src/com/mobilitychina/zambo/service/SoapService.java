@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+
 import com.mobilitychina.net.SoapTask;
 import com.mobilitychina.zambo.app.ZamboApplication;
 import com.mobilitychina.zambo.util.CommonUtil;
@@ -91,29 +94,22 @@ public class SoapService {
 	 * @param deviceid
 	 * @return
 	 */
-	public static SoapTask getLoginTask(Context context, String phone, String password, String deviceid) {
+	public static SoapTask getLoginTask(Context context, String name, String password, String deviceid) {
 		SoapTask task = new SoapTask(context);
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.LOGIN_METHOD);
-		//task.setCacheType(CacheType.NORMAL);
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("arg0", phone));
-		params.add(new BasicNameValuePair("arg1", password));
-		params.add(new BasicNameValuePair("arg2", deviceid));
-		PackageManager manager = context.getPackageManager();
+		task.setUrl("http://192.168.11.100:8080/TestWeb/TestServlet");
+		JSONObject json = new JSONObject();
+		JSONObject message = new JSONObject();
 		try {
-			PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
-			String versioncode = info.versionName.replaceAll("\\.", "");
-			params.add(new BasicNameValuePair("arg3", versioncode));
-		} catch (NameNotFoundException e) {
+			message.put("type", "basic");
+			message.put("name", name);
+			message.put("password", password);
+			json.put("identication", message);
+			json.put("data", new JSONObject().put("imei", deviceid));
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			params.add(new BasicNameValuePair("arg3", "0"));
 		}
-		
-		task.setParams(params);
-
+		task.setPostString(json.toString());
 		return task;
 	}
 

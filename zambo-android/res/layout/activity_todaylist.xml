@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/content"
-        android:name="com.mobilitychina.siemens.business.today.TodayFragment"
+        android:name="com.mobilitychina.zambo.business.today.TodayFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -1,5 +1,8 @@
 ﻿package com.mobilitychina.zambo.home;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ComponentName;
@@ -339,7 +342,19 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 			sendEvent("login", "login", "网络错误", 0);
 			return;
 		}
-		String[] loginResultArray = result.toString().split("&");
+		String code = "-1";
+		try {
+			JSONObject jsonResult = new JSONObject(result.toString());
+			code = jsonResult.getString("code");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
+		if(code.equals("-1")){
+			
+		}
+		/*String[] loginResultArray = result.toString().split("&");
 		if (loginResultArray.length < 3) {
 			Log.d(TAG, "Login faile with result name&posId&loginFlag&isLeader:"
 					+ result);
@@ -378,20 +393,20 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 		sendEvent("login", "login", "successful", 0);
 		String name = loginResultArray[0];
 		String posId = loginResultArray[1];
-		String isLeader = loginResultArray[3];
+		String isLeader = loginResultArray[3];*/
 		Environment.getInstance().setClientID(etSalescode.getText().toString());//id
 		
 		UserInfoManager.getInstance()
 				.setPhone(etSalescode.getText().toString());
 		UserInfoManager.getInstance().setPassword(
 				etPassword.getText().toString());
-		UserInfoManager.getInstance().setName(name);
-		UserInfoManager.getInstance().setPosId(posId);
-		UserInfoManager.getInstance().setLeader(isLeader.equalsIgnoreCase("Y"));
+//		UserInfoManager.getInstance().setName(name);
+//		UserInfoManager.getInstance().setPosId(posId);
+//		UserInfoManager.getInstance().setLeader(isLeader.equalsIgnoreCase("Y"));
 		UserInfoManager.getInstance().sync(this, true);
 		UserInfoManager.getInstance().print();
 		
-		if ("6".equals(loginFlag)) { // 第一次登录，进入修改密码
+		if ("1".equals(code)) { // 第一次登录，进入修改密码
 			Log.d(TAG, "the fisrt login please modify your password..");
 			Intent intent = new Intent(LoginActivity.this,
 					ModifyPasswordActivity.class);

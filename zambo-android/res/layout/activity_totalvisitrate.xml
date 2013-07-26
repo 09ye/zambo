@@ -50,7 +50,7 @@
 
             <fragment
                 android:id="@+id/webViewKpi"
-                android:name="com.mobilitychina.siemens.business.kpi.KpiFragment"
+                android:name="com.mobilitychina.zambo.business.kpi.KpiFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="80px"
