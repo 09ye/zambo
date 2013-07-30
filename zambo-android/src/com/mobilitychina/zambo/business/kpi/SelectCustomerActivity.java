@@ -57,7 +57,7 @@ public class SelectCustomerActivity extends BaseDetailActivity implements OnItem
 				ft.hide(contentFragment);
 				ft.commit();
 				this.showProgressDialog("正在加载...");
-				getCustomerListTask = SoapService.getAllSiemensCustomersTask(ZamboApplication.getInstance()
+				getCustomerListTask = SoapService.getAllZamboCustomersTask(ZamboApplication.getInstance()
 						.getApplicationContext(), "A");
 				getCustomerListTask.setListener(this);
 				getCustomerListTask.start();

@@ -10,15 +10,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="87dp"
-        android:layout_marginTop="313dp"
+        android:layout_marginTop="270dp"
         android:orientation="vertical" >
 
         <EditText
             android:id="@+id/salescode"
             android:layout_width="200dp"
             android:layout_height="35dp"
-            android:inputType="phone"
             android:minWidth="200dip"
+            android:inputType="text"
             android:singleLine="true"
             android:textSize="@dimen/text_medium_1" >
 
@@ -75,7 +75,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@null"
-        android:paddingBottom="20dp"
+        android:paddingBottom="10dp"
         android:paddingRight="20dp"
         android:text="登录选项"
         android:textColor="#FFEFF0E2"

@@ -26,6 +26,7 @@ import com.mobilitychina.log.McLogger;
 import com.mobilitychina.util.Log;
 import com.mobilitychina.zambo.R;
 import com.mobilitychina.zambo.app.BaseDetailActivity;
+import com.mobilitychina.zambo.app.ZamboApplication;
 import com.mobilitychina.zambo.service.UserInfoManager;
 import com.mobilitychina.zambo.util.CommonUtil;
 import com.mobilitychina.zambo.util.MsLogType;
@@ -39,13 +40,7 @@ public class SwitchServerActivity extends BaseDetailActivity implements OnClickL
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.switch_server);
 		
-		LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    final LinearLayout layout = (LinearLayout)inflater.inflate(R.layout.dialogview, null);
-		definit = (EditText)layout.findViewById(R.id.defindUrl);
-		definit.setText("http://192.168.11.102:8080/TestWeb/TestServlet");
-		if(UserInfoManager.getInstance().getDefinitUrl()!=null){
-			definit.setText(UserInfoManager.getInstance().getDefinitUrl());
-		}
+		
 		
 		
 		this.setTitle("设置");
@@ -115,8 +110,16 @@ public class SwitchServerActivity extends BaseDetailActivity implements OnClickL
 
 							});
 				}else{
-					CommonUtil.switchServer(SwitchServerActivity.this, 2);
-//					layout.removeAllViews();
+					
+					LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				    final LinearLayout layout = (LinearLayout)inflater.inflate(R.layout.dialogview, null);
+					definit = (EditText)layout.findViewById(R.id.defindUrl);
+					definit.setText("http://192.168.11.198:8081");
+					UserInfoManager.getInstance().sync(ZamboApplication.getInstance().getApplicationContext(), false);
+					if(UserInfoManager.getInstance().getDefinitUrl()!=null){
+						definit.setText(UserInfoManager.getInstance().getDefinitUrl());
+					}
+					
 					Builder builder = new Builder(SwitchServerActivity.this);
 					builder.setTitle("输入自定义地址");
 					builder.setView(layout);
@@ -129,6 +132,7 @@ public class SwitchServerActivity extends BaseDetailActivity implements OnClickL
 									  Log.d("SwitchServerActivity", definitUrl);
 									  UserInfoManager.getInstance().setDefinitUrl(definitUrl);
 									  UserInfoManager.getInstance().sync(SwitchServerActivity.this, true);
+									  CommonUtil.switchServer(SwitchServerActivity.this, 2);
 									  finish();
 								}
 							});
@@ -138,15 +142,26 @@ public class SwitchServerActivity extends BaseDetailActivity implements OnClickL
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
 							dialog.dismiss();
+//							layout.removeAllViews();
 							isManualSwitchServer = false;
 							RadioGroup radioGroup = (RadioGroup) SwitchServerActivity.this
-							.findViewById(R.id.switchServerRadioGroup);
-							((RadioButton) radioGroup.findViewById(R.id.definitServerRadio)).setChecked(true);
+									.findViewById(R.id.switchServerRadioGroup);
+							switch(CommonUtil.isMainServer(SwitchServerActivity.this)){
+							case 0:
+								((RadioButton) radioGroup.findViewById(R.id.mainServerRadio)).setChecked(true);
+								break;
+							case 1:
+								((RadioButton) radioGroup.findViewById(R.id.testServerRadio)).setChecked(true);
+								break;
+							case 2:
+								((RadioButton) radioGroup.findViewById(R.id.definitServerRadio)).setChecked(true);
+								break;
+							}
 						}
 					});
-					builder.show();
-					
+					builder.setCancelable(false).show();
 				}
+				
 				
 			}
 		});

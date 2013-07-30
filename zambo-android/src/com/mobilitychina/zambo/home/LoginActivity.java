@@ -341,6 +341,7 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 	public void onTaskFinished(Task task) {
 		this.dismissDialog();
 		Object result = task.getResult();
+		System.out.println("reult--"+result);
 		//result = new SoapPrimitive("","anyType","rocket&780&4&N");
 		if (result == null) {
 			Log.d(TAG, "fall login.can not connect to webservice.");
@@ -357,8 +358,11 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 			e.printStackTrace();
 			return;
 		}
-		if(code.equals("-1")){
-			
+		if(code.equals("-2")){
+			Log.d(TAG, "Login fail check password and phone ..");
+			showErrorMessage(R.string.login_err_identity);
+			sendEvent("login", "login", "账号密码错误", 0);
+			return;
 		}
 		/*String[] loginResultArray = result.toString().split("&");
 		if (loginResultArray.length < 3) {

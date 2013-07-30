@@ -29,7 +29,7 @@
             <RadioGroup
                 android:id="@+id/switchServerRadioGroup"
                 android:layout_width="320dp"
-                android:layout_height="162dp"
+                android:layout_height="200dp"
                 android:background="@drawable/add_project_item"
                 android:paddingLeft="10dip" >
 

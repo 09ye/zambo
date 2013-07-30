@@ -87,7 +87,7 @@ public class SoapService {
 			SOAP_URL = TEST_OPENAPIURL + OPENAPI_PATH;
 			break;
 		case 2:
-			
+			UserInfoManager.getInstance().sync(ZamboApplication.getInstance().getApplicationContext(), false);
 			SOAP_URL = UserInfoManager.getInstance().getDefinitUrl();
 //			Log.d("SoapActivity", UserInfoManager.getInstance().getDefinitUrl());
 			break;
@@ -107,8 +107,8 @@ public class SoapService {
 	 */
 	public static SoapTask getLoginTask(Context context, String name, String password, String deviceid) {
 		SoapTask task = new SoapTask(context);
-		System.out.println("url"+SOAP_URL);
-		task.setUrl(SOAP_URL);
+		System.out.println(SoapService.SOAP_URL+"/login");
+		task.setUrl(SoapService.SOAP_URL+"/login");
 		JSONObject json = new JSONObject();
 		JSONObject message = new JSONObject();
 		try {
@@ -154,18 +154,23 @@ public class SoapService {
 	 *            "A"=我的团队,"I"=我的
 	 * @return 客户列表对象
 	 */
-	public static SoapTask getAllSiemensCustomersTask(Context context, String type) {
+	public static SoapTask getAllZamboCustomersTask(Context context, String type) {
 		SoapTask task = new SoapTask(context);
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_ALL_SIMEMENS_CUSTOMERS_METHOD);
-		//task.setCacheType(CacheType.NOTKEYBUSSINESS);
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getPhone()));
-		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getPassword()));
-		params.add(new BasicNameValuePair("arg2", type));
-		task.setParams(params);
-
+		JSONObject json = new JSONObject();
+		JSONObject message = new JSONObject();
+		UserInfoManager.getInstance().sync(ZamboApplication.getInstance().getApplicationContext(), false);
+		try {
+			message.put("type", "basic");
+			message.put("name", UserInfoManager.getInstance().getPhone());
+			message.put("password", UserInfoManager.getInstance().getPassword());
+			json.put("identication", message);
+			json.put("data", new JSONObject());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		task.setUrl(SoapService.SOAP_URL+"/get_customer");
+		task.setPostString(json.toString());
 		return task;
 	}
 
@@ -651,8 +656,6 @@ public class SoapService {
 	public static SoapTask createVisitPlanTask(String custIds, String date) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
 		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.CREATE_VISIT_PLAN_METHOD);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", custIds));
 		params.add(new BasicNameValuePair("arg1", date));

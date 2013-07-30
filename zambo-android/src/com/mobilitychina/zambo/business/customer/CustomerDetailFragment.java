@@ -1,7 +1,6 @@
 package com.mobilitychina.zambo.business.customer;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,9 +17,7 @@ import com.mobilitychina.log.McLogger;
 import com.mobilitychina.zambo.R;
 import com.mobilitychina.zambo.app.BaseActivity;
 import com.mobilitychina.zambo.business.customer.data.CustomerInfo;
-import com.mobilitychina.zambo.business.record.FollowupListFragment;
 import com.mobilitychina.zambo.business.record.ProjectDetailActivity;
-import com.mobilitychina.zambo.business.record.ProjectListFragment;
 import com.mobilitychina.zambo.service.CustomerInfoManager;
 import com.mobilitychina.zambo.util.MsLogType;
 import com.mobilitychina.zambo.widget.CustomImageButton;
@@ -30,18 +27,36 @@ public class CustomerDetailFragment extends BaseFragment{
 	private String customerId;
 	private String planId; // 计划ID
 
-	private ProjectListFragment projectRecordListFragment;
-	private FollowupListFragment followupListFragment;
 	private Button btnProjectRecordList;
 	private Button btnFollowupList;
 
 	private int REQUEST_CODE_ADDPROJECT = 0;
+	OnSelectedListener onSelectedListener;
+	
+	public interface OnSelectedListener{
+		public void onSelected(int i);
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
 	
+	
+
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		try {
+			onSelectedListener = (OnSelectedListener) activity;
+		} catch (ClassCastException e) {  
+		  throw new ClassCastException(activity.toString() + " must implementonSelectedListener");  
+
+		}
+	}
+
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -151,21 +166,7 @@ public class CustomerDetailFragment extends BaseFragment{
 		} else {
 			((TextView) view.findViewById(R.id.tvNextPlanTime)).setText("暂无计划");
 		}
-//		projectRecordListFragment = (ProjectListFragment) getFragmentManager().findFragmentById(R.id.fragmentProjectRecordList);
-		projectRecordListFragment = new ProjectListFragment();
-		getFragmentManager().beginTransaction().add(R.id.fragmentProjectRecordList, projectRecordListFragment).commit();
-		projectRecordListFragment.setCustomerId(customerId);
-		
-//		followupListFragment = (FollowupListFragment) getFragmentManager().findFragmentById(
-//				R.id.fragmentFollowupList);
-		followupListFragment = new FollowupListFragment();
-		getFragmentManager().beginTransaction().add(R.id.fragmentFollowupList, followupListFragment).commit();
-		followupListFragment.setCustomerId(customerId);
-		if (planId == null|| planId.length() == 0){
-			projectRecordListFragment.setUpdateable(false);
-		}else{
-			projectRecordListFragment.setUpdateable(true);
-		}
+	
 
 		btnProjectRecordList = (Button) view.findViewById(R.id.btnProjectRecordList);
 		btnProjectRecordList.setOnClickListener(tabListener);
@@ -187,36 +188,22 @@ public class CustomerDetailFragment extends BaseFragment{
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == REQUEST_CODE_ADDPROJECT) {
 			if (btnProjectRecordList.isSelected()) {
-				projectRecordListFragment.refresh();
+				onSelectedListener.onSelected(3);
 			}
 		}
 	}
 
 	private void onTabChanged(View v) {
+		
 		if (v == btnFollowupList) {
-			FragmentTransaction ft = getFragmentManager().beginTransaction();
-			ft.show(followupListFragment);
-			ft.hide(projectRecordListFragment);
-			ft.commit();
 			btnFollowupList.setSelected(true);
 			btnProjectRecordList.setSelected(false);
-			followupListFragment.refresh();
-			((BaseActivity) getActivity()).sendEvent("customer_detail", "customer_followupRecord", "", 0);
-//System.out.println("随访-----》》》》");
-			
+			onSelectedListener.onSelected(1);
 		} else {
-			FragmentTransaction ft = getFragmentManager().beginTransaction();
-			ft.hide(followupListFragment);
-			ft.show(projectRecordListFragment);
-			ft.commit();
 
 			btnFollowupList.setSelected(false);
 			btnProjectRecordList.setSelected(true);
-			projectRecordListFragment.refresh();
-			
-			((BaseActivity) getActivity()).sendEvent("customer_detail", "project_list", "", 0);
-//			System.out.println("列表项-----》》》》");
-
+			onSelectedListener.onSelected(2);
 		}
 	}
 

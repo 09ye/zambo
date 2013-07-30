@@ -27,12 +27,12 @@ public class CheckInValidataionHelper {
 				try {
 					
 					Date signDate = sdf.parse(planInfo.getSignDate());
-					if ((signDate.getMonth() == date.getMonth())&& (signDate.getDay() == date.getDay())) {// 同一天签到
+					if ((signDate.getMonth() == date.getMonth())&& (signDate.getDate() == date.getDate())) {// 同一天签到
 						if (planInfo.getVisitDate() != null
 								&& planInfo.getVisitDate().length() > 0) {
 							Date visitDate = sdf.parse(planInfo.getVisitDate());
 							if ((visitDate.getMonth() != date.getMonth())
-									|| (visitDate.getDay() != date.getDay())) {
+									|| (visitDate.getDate() != date.getDate())) {
 								return false;
 							}
 						} else {

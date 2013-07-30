@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">西门子医疗客户拜访</string>
+    <string name="app_name">力腾天骏客户拜访</string>
     <string name="app_title">Sales Management</string>
     <string name="err_network">网络异常,请重试</string>
     <string name="confirm">确定</string>
