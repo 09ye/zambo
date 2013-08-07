@@ -20,8 +20,11 @@ import android.os.Looper;
 import com.mobilitychina.intf.ITaskListener;
 import com.mobilitychina.intf.Task;
 import com.mobilitychina.log.McLogger;
+import com.mobilitychina.net.HttpPostTask;
 import com.mobilitychina.net.SoapTask;
 import com.mobilitychina.util.CacheType;
+import com.mobilitychina.util.Log;
+import com.mobilitychina.util.NetObject;
 import com.mobilitychina.zambo.app.ZamboApplication;
 import com.mobilitychina.zambo.business.customer.data.CustomerInfo;
 import com.mobilitychina.zambo.business.customer.data.CustomerType;
@@ -52,7 +55,7 @@ public class CustomerInfoManager implements ITaskListener,BusDelegate {
 	private Map<String, List<CustomerInfo>> mGroupCustomerMap;
 	private List<CustomerType> mCustomerTypeList;
 
-	private SoapTask getCustomerListTask;
+	private HttpPostTask getCustomerListTask;
 	private SoapTask getCustomerTypeTask;
 
 	private static CustomerInfoManager mIntance;
@@ -71,7 +74,7 @@ public class CustomerInfoManager implements ITaskListener,BusDelegate {
 					ConfigDefinition.INTENT_ACTION_SERVICE_SETUP)		) {//订阅
 				NotificationService.instance().addBusDelegate(CustomerInfoManager.this);
 				MsgSenderInfo msg = new MsgSenderInfo();
-				msg.setClientId(UserInfoManager.getInstance().getPhone());
+				msg.setClientId(UserInfoManager.getInstance().getUserId());
 				msg.setMsgId(MsgDefine.MSG_CUSTEMER_UPDATE);
 				NotificationService.instance().sendMsg(msg);
 			}
@@ -103,11 +106,12 @@ public class CustomerInfoManager implements ITaskListener,BusDelegate {
 		mGroupCustomerMap.clear();
 		
 		status = CustomerLoadStatus.LOADING;
-		getCustomerListTask = SoapService.getAllZamboCustomersTask(ZamboApplication.getInstance()
-				.getApplicationContext(), "I");
+		getCustomerListTask = new HttpPostTask(ZamboApplication.getInstance().getApplicationContext());
+		getCustomerListTask.setUrl(HttpPostService.SOAP_URL + "get_customer");
+		getCustomerListTask.getTaskArgs().put("emp_id", "3");
 		getCustomerListTask.setListener(this);
 		getCustomerListTask.start();
-		getCustomerListTask.setCacheType(CacheType.NOTKEYBUSSINESS);
+//		getCustomerListTask.setCacheType(CacheType.NOTKEYBUSSINESS);
 		customerTypeStatus = CustomerLoadStatus.LOADING;
 		getCustomerTypeTask = SoapService.getSiemensCustType("I");
 		getCustomerTypeTask.setListener(this);
@@ -138,37 +142,22 @@ public class CustomerInfoManager implements ITaskListener,BusDelegate {
 		return mCustomerTypeList;
 	}
 
-	public List<CustomerInfo> parseCustomerInfoList(Object result) {
+	public List<CustomerInfo> parseCustomerInfoList(NetObject result) {
 		if (result == null) {
 			return null;
 		}
-		List<CustomerInfo> custInfoList;
-		try {
-			// Log.i(TAG, "---result---" + result.toString());
-			JSONObject jsonResult = new JSONObject(result.toString());
-			JSONObject data = jsonResult.getJSONObject("data");
-			if(data==null){
-				return null;
+		List<NetObject> list = result.listForKey("data");
+		List<CustomerInfo> custInfoList = new ArrayList<CustomerInfo>(list.size());
+		for (NetObject netObject : list) {
+			CustomerInfo customerInfo = new CustomerInfo();
+			customerInfo.setId(netObject.stringForKey("id"));
+			customerInfo.setCustName(netObject.stringForKey("custName"));
+			customerInfo.setCustType(" ");
+			List<Object> type =  netObject.arrayForKey("custType");
+			if(type!=null){
+				customerInfo.setCustType((String) type.get(1));
 			}
-			JSONArray list = data.getJSONArray("list");
-			int n  = list.length();
-			custInfoList = new ArrayList<CustomerInfo>(n);
-			for(int i = 0;i<n;i++){
-				JSONObject customer = (JSONObject) list.get(i);
-			    CustomerInfo customerInfo = new CustomerInfo();
-			    customerInfo.setId(customer.getString("id"));
-			    customerInfo.setCustName(customer.getString("custName"));
-			    try {
-					customerInfo.setCustType((String)customer.getJSONArray("custType").get(1));
-				} catch (Exception e) {
-					customerInfo.setCustType(" ");
-				}
-				custInfoList.add(customerInfo);
-			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+			custInfoList.add(customerInfo);
 		}
 		return custInfoList;
 	}
@@ -385,8 +374,8 @@ public class CustomerInfoManager implements ITaskListener,BusDelegate {
 	public void onTaskFinished(Task task) {
 		if (task == getCustomerListTask) {
 			McLogger.getInstance().addLog(MsLogType.TYPE_SYS,MsLogType.ACT_CUSTOMER,"获取列表成功");
-			Object result = task.getResult();
-			System.out.println("CustomeIforesult--"+result);
+			NetObject result = ((HttpPostTask)task).getResult();
+			Log.i("HttpPostTask",task.getResult().toString());
 			List<CustomerInfo> custInfoList = this.parseCustomerInfoList(result);
 			if (custInfoList != null) {
 				this.mCustomerinfoList.clear();
@@ -425,8 +414,9 @@ public class CustomerInfoManager implements ITaskListener,BusDelegate {
 					@Override
 					public void run() {
 						retryCount++;
-						getCustomerListTask = SoapService.getAllZamboCustomersTask(ZamboApplication.getInstance()
-								.getApplicationContext(), "I");
+						getCustomerListTask = new HttpPostTask(ZamboApplication.getInstance().getApplicationContext());
+						getCustomerListTask.setUrl(HttpPostService.SOAP_URL+"/get_customer");
+//						getCustomerListTask.getTaskArgs().put(key, value);
 						getCustomerListTask.setListener(CustomerInfoManager.this);
 						getCustomerListTask.start();
 					}

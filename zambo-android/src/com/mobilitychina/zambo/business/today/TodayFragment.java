@@ -48,11 +48,14 @@ import com.baidu.location.LocationClientOption;
 import com.mobilitychina.intf.ITaskListener;
 import com.mobilitychina.intf.Task;
 import com.mobilitychina.log.McLogger;
+import com.mobilitychina.net.HttpPostTask;
 import com.mobilitychina.net.SoapTask;
 import com.mobilitychina.util.Log;
+import com.mobilitychina.util.NetObject;
 import com.mobilitychina.zambo.R;
 import com.mobilitychina.zambo.app.BaseActivity;
 import com.mobilitychina.zambo.app.BaseTitlebar;
+import com.mobilitychina.zambo.app.ZamboApplication;
 import com.mobilitychina.zambo.business.customer.CustomerDetailActivity;
 import com.mobilitychina.zambo.business.customer.data.CustomerInfo;
 import com.mobilitychina.zambo.business.plan.data.GridViewTitleAdapter;
@@ -62,6 +65,7 @@ import com.mobilitychina.zambo.checkin.CheckInDBHelper;
 import com.mobilitychina.zambo.checkin.CheckInOfflineManager;
 import com.mobilitychina.zambo.checkin.CheckInValidataionHelper;
 import com.mobilitychina.zambo.service.CustomerInfoManager;
+import com.mobilitychina.zambo.service.HttpPostService;
 import com.mobilitychina.zambo.service.SoapService;
 import com.mobilitychina.zambo.service.location.LocationInfoManager;
 import com.mobilitychina.zambo.service.resps.RespFactory;
@@ -77,9 +81,9 @@ import com.mobilitychina.zambo.widget.calendar.WeekGridViewAdapter;
 
 public class TodayFragment extends ListFragment implements ITaskListener,
 		OnTouchListener, BDLocationListener { 
-	private SoapTask mTaskPlanlist;
-	private SoapTask mTaskCheckIn;
-	private SoapTask mTaskCheckInUpload;//上传新gps
+	private HttpPostTask mTaskPlanlist;
+	private HttpPostTask mTaskCheckIn;
+	private HttpPostTask mTaskCheckInUpload;//上传新gps
 	private List<PlanInfo> mPlanInfoList = new ArrayList<PlanInfo>();
 	private MyAdapter mAdatper;
 	private BaseTitlebar mTitleBar;
@@ -276,7 +280,8 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 								public void onClick(DialogInterface dialog,
 										int which) {
 									McLogger.getInstance().addLog(MsLogType.TYPE_USER,MsLogType.ACT_CHECKIN,"选择更新的POI的GPS"+";CID:"+checkInPlanInfo.getId());
-									CheckInAndUpdateLocation(latitude, longitude,accuracy);
+									CheckIn(latitude, longitude,accuracy);
+//									CheckInAndUpdateLocation(latitude, longitude,accuracy);
 									Statistics.sendEvent("visit", "checkin", "uploadgps", (long) 0);  
 								}
 							});
@@ -306,7 +311,14 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 		checkinSuccessed = false;
 		checkInMsg = new CheckInOfflineManager.CheckInMsg(custId, datelineId, longitude, latitude, accuracy,
 				CommonUtil.getCurrentTime("yyyy-MM-dd HH:mm:ss"));
-		mTaskCheckIn = SoapService.getCheckInTask(custId, datelineId, longitude, latitude, accuracy);
+		mTaskCheckIn = new HttpPostTask(ZamboApplication.getInstance().getApplicationContext());
+		mTaskCheckIn.setUrl(HttpPostService.SOAP_URL+"create_visit_sign_in" );
+		mTaskCheckIn.getTaskArgs().put("emp_id", 3);
+		mTaskCheckIn.getTaskArgs().put("visit_plan_id", datelineId);
+		mTaskCheckIn.getTaskArgs().put("latitude",latitude);
+		mTaskCheckIn.getTaskArgs().put("longitude",longitude);
+		mTaskCheckIn.getTaskArgs().put("accuracy",accuracy);
+		mTaskCheckIn.getTaskArgs().put("client_time","'"+CommonUtil.getCurrentTime("yyyy-MM-dd HH:mm:ss")+"'");
 		mTaskCheckIn.setListener(TodayFragment.this);
 		mTaskCheckIn.start();
 		((BaseActivity) getActivity()).showProgressDialog("正在签到...");
@@ -325,7 +337,7 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 		checkinSuccessed = false;
 		checkInMsg = new CheckInOfflineManager.CheckInMsg(custId, datelineId, longitude, latitude, accuracy,
 				CommonUtil.getCurrentTime("yyyy-MM-dd HH:mm:ss"));
-		mTaskCheckInUpload = SoapService.getCheckInAndUpdateLocationTask(custId, datelineId, longitude, latitude, accuracy);
+//		mTaskCheckInUpload = SoapService.getCheckInAndUpdateLocationTask(custId, datelineId, longitude, latitude, accuracy);
 		mTaskCheckInUpload.setListener(TodayFragment.this);
 		mTaskCheckInUpload.start();
 		((BaseActivity) getActivity()).showProgressDialog("正在签到...");
@@ -400,6 +412,7 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 		option.disableCache(true);
 		mLocationClient.setLocOption(option);
 		mLocationClient.registerLocationListener(this);
+		this.initPlanList();
 	}
 
 	private void onCreateCalendarView() {
@@ -419,7 +432,7 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 		// TODO Auto-generated method stub
 		super.onResume();
 		
-		this.initPlanList();
+//		this.initPlanList();
 		mLocationClient.start();
 		mLocationClient.requestLocation();
 	}
@@ -453,10 +466,16 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 		}else{
 			((BaseActivity) this.getActivity()).showProgressDialog("正在更新任务列表...",false);
 		}
+		if(mTaskPlanlist != null){
+			mTaskPlanlist.setListener(null);
+		}
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		mTaskPlanlist = SoapService.getPlanlistTask(
-				df.format(gWeekAdapter.getCalendarFirstDate()),
-				df.format(gWeekAdapter.getCalendarLastDate()));
+		mTaskPlanlist = new HttpPostTask(ZamboApplication.getInstance().getApplicationContext());
+		mTaskPlanlist.setUrl(HttpPostService.SOAP_URL+"get_visit_plan__list" );
+		mTaskPlanlist.getTaskArgs().put("emp_id", 3);
+		mTaskPlanlist.getTaskArgs().put("plan_status", "A");
+		mTaskPlanlist.getTaskArgs().put("plan_start_date", df.format(gWeekAdapter.getCalendarFirstDate()));
+		mTaskPlanlist.getTaskArgs().put("plan_end_date", df.format(gWeekAdapter.getCalendarLastDate()));
 		mTaskPlanlist.setListener(this);
 		mTaskPlanlist.setMaxTryCount(5);
 		mTaskPlanlist.start();
@@ -491,10 +510,27 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 		((BaseActivity) this.getActivity()).dismissDialog();
 
 		if (task == mTaskPlanlist) {
+			NetObject result = ((HttpPostTask)task).getResult();
+			List<NetObject> listNet = result.listForKey("data");
+			Log.i("HttpPostTask",task.getResult().toString());
+			if(mPlanInfoList!=null){
+				mPlanInfoList.clear();
+			}
+			for (NetObject netObject : listNet) {
+				PlanInfo plan = new PlanInfo();
+//			    CustomerInfo CustomerInfo = CustomerInfoManager.getInstance().getCustomerById(custId);
+				plan.setId(Integer.valueOf((netObject.stringForKey("id"))));
+			    plan.setCustDetailId((Integer) netObject.arrayForKey("cust_id").get(0));
+			    plan.setCustName((String) netObject.arrayForKey("cust_id").get(1));
+			    plan.setModify_date(netObject.stringForKey("plan_visit_date"));
+			    plan.setPlanStatus(netObject.stringForKey("plan_type"));
+			    plan.setVisited("Y");
+				mPlanInfoList.add(plan);
+			}
 			McLogger.getInstance().addLog(MsLogType.TYPE_SYS,MsLogType.ACT_VISITE,"获取列表成功");
 			
-			mPlanInfoList = RespFactory.getService().fromResp(PlanInfo.class,
-					task.getResult());
+//			mPlanInfoList = RespFactory.getService().fromResp(PlanInfo.class,
+//					task.getResult());
 			if (mPlanInfoList == null) {
 				return;
 			}
@@ -502,15 +538,25 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 				mAdatper = new MyAdapter(this.getActivity());
 			}
 			List<String> list = new ArrayList<String>();
+			Calendar calendar = Calendar.getInstance();
+			int month = calendar.get(Calendar.MONTH)+1;
+			String m = String.valueOf(calendar.get(Calendar.MONTH)+1);
+			if(month<10){
+				StringBuffer sb = new StringBuffer(m);
+				sb.insert(0, "0");
+				m = sb.toString();
+			}
 			if (mPlanInfoList != null) {
 				for (PlanInfo info : mPlanInfoList) {
 					if (!list.contains(info.getModify_date())) {
 						list.add(info.getModify_date());
 					}
-					CustomerInfo cs  = CustomerInfoManager.getInstance().getCustomerById(String.valueOf(info.getCustDetailId()));
-					if(cs != null){
-						cs.setPlanVisitNum(info.getVisitNum());
-						cs.setVisitedNum(info.getVisitedNum());
+					if(info.getModify_date().split("-")[1].startsWith(m)){
+						CustomerInfo cs  = CustomerInfoManager.getInstance().getCustomerById(String.valueOf(info.getCustDetailId()));
+						if(cs != null){
+							cs.setPlanVisitNum(info.getVisitNum());
+							cs.setVisitedNum(info.getVisitedNum());
+						}
 					}
 				}
 			}
@@ -525,18 +571,20 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 			isFirstRequestPlanList = false;
 		} else if (task == mTaskCheckIn || task == mTaskCheckInUpload) {
 			try{
-				String retMsg = null;
-				Log.i("checkin result",task.getResult().toString());
-				int retCode = Integer.parseInt(task.getResult().toString());
-				if(retCode == 1){
-					retMsg = "您当前使用的版本过低，请升级到最新版本.";
-				}else if(retCode == 2){
-					retMsg = "现在距您上次签到时间较短，系统暂不允许您进行签到，请稍后再试.";
-				}else if(retCode == 3){
-					retMsg = "今天尚有计划未跟进，请先完成跟进后再做签到！";
-				}else if(retCode == 4){
-					retMsg = "客户关联已取消.";
-				}else{
+				NetObject result = ((HttpPostTask)task).getResult();
+				Log.i("HttpPostTask",task.getResult().toString());
+//				final int siginId = result.jsonObjectForKey("data").getInt("id");
+				String retMsg = result.stringForKey("message").replaceAll("[^\u4E00-\u9FA5]", "");;
+				int retCode = Integer.valueOf(result.stringForKey("code"));
+//				if(retCode == 1){
+//					retMsg = "您当前使用的版本过低，请升级到最新版本.";
+//				}else if(retCode == 2){
+//					retMsg = "现在距您上次签到时间较短，系统暂不允许您进行签到，请稍后再试.";
+//				}else if(retCode == 3){
+//					retMsg = "今天尚有计划未跟进，请先完成跟进后再做签到！";
+//				}else if(retCode == 4){
+//					retMsg = "客户关联已取消.";
+				if(retCode==0){
 					checkinSuccessed = true;
 					Builder builder = new Builder(
 							TodayFragment.this.getActivity());
@@ -553,7 +601,14 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 						public void onClick(DialogInterface dialog, int which) 
 						{
 							if(checkinSuccessed){
-								TodayFragment.this.initPlanList();
+							int	custId = checkInPlanInfo.getCustDetailId();
+								for (PlanInfo planInfo : mPlanInfoList) {
+									if (planInfo.getCustDetailId()==custId) {
+										planInfo.setVisited("Y");
+									}
+								}
+								mAdatper.notifyDataSetChanged();
+//								TodayFragment.this.initPlanList();
 								CheckInDBHelper.instance().insertOrUpdate(checkInMsg);
 							}
 						};
@@ -764,7 +819,7 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 			// 绑定数据、以及事件触发
 			if (mListPlanInfo.get(position).getCustDetailId() != 0) {
 				// 绑定数据、以及事件触发
-				if ("L".equals(mListPlanInfo.get(position).getPlanStatus())) {
+				if ("T".equals(mListPlanInfo.get(position).getPlanStatus())) {
 					planitem.titleView
 							.setText(position + 1 + "-" + mListPlanInfo.size()
 									+ " "

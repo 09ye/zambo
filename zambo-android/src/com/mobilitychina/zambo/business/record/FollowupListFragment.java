@@ -195,7 +195,6 @@ public class FollowupListFragment extends ListFragment implements ITaskListener 
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			System.out.println("大小"+mFollowupList.size());
 			if (mFollowupList.size() == 0) {
 				Context context = FollowupListFragment.this.getActivity();
 				if (isError) {

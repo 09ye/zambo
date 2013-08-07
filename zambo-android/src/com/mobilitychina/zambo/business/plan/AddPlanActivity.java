@@ -1,7 +1,7 @@
 package com.mobilitychina.zambo.business.plan;
 
-import java.util.Date;
 import java.util.List;
+
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,13 +11,15 @@ import android.view.View.OnClickListener;
 
 import com.mobilitychina.intf.ITaskListener;
 import com.mobilitychina.intf.Task;
-import com.mobilitychina.net.SoapTask;
+import com.mobilitychina.net.HttpPostTask;
+import com.mobilitychina.util.Log;
+import com.mobilitychina.util.NetObject;
 import com.mobilitychina.zambo.R;
 import com.mobilitychina.zambo.app.BaseDetailActivity;
 import com.mobilitychina.zambo.app.BaseTitlebar;
 import com.mobilitychina.zambo.business.customer.CustomerFragment;
 import com.mobilitychina.zambo.business.customer.data.CustomerInfo;
-import com.mobilitychina.zambo.service.SoapService;
+import com.mobilitychina.zambo.service.HttpPostService;
 import com.mobilitychina.zambo.util.ConfigDefinition;
 
 /**
@@ -27,15 +29,15 @@ import com.mobilitychina.zambo.util.ConfigDefinition;
  * 
  */
 public class AddPlanActivity extends BaseDetailActivity implements ITaskListener {
-	public static final int AddPlanTypeNormal = 0; // 正常计划
-	public static final int AddPlanTypeTemp = 1; // 临时计划
+	public static final String AddPlanTypeNormal = "F"; // 正常计划
+	public static final String AddPlanTypeTemp = "T"; // 临时计划
 
-	private int type;
+	private String type;
 	private String planDate;
 	
 	private CustomerFragment contentFragment;
 
-	private SoapTask addPlanTask;
+	private HttpPostTask addPlanTask;
 	
 	private BaseTitlebar baseTitleBar;
 	
@@ -47,9 +49,9 @@ public class AddPlanActivity extends BaseDetailActivity implements ITaskListener
 		contentFragment.hideTitlebar();
 		contentFragment.setMultiSelect(true);
 
-		type = this.getIntent().getExtras().getInt("type", AddPlanTypeTemp);
+		type = this.getIntent().getExtras().getString("type", AddPlanTypeTemp);
 		planDate = this.getIntent().getExtras().getString("planDate");
-		if (type == AddPlanTypeNormal) {
+		if (type.equalsIgnoreCase(AddPlanTypeNormal)) {
 			this.setTitle("添加正常计划");
 		} else {
 			this.setTitle("添加临时计划");
@@ -70,7 +72,13 @@ public class AddPlanActivity extends BaseDetailActivity implements ITaskListener
 				}
 				sb.deleteCharAt(sb.length() - 1);
 				String custIds = sb.toString();
-				addPlanTask = SoapService.createVisitPlanTask(custIds, planDate);
+				addPlanTask = new HttpPostTask(AddPlanActivity.this);
+				addPlanTask.setUrl(HttpPostService.SOAP_URL + "create_visit_plan");
+				addPlanTask.getTaskArgs().put("emp_id", "3");
+				addPlanTask.getTaskArgs().put("cust_id", custIds);
+				addPlanTask.getTaskArgs().put("plan_status", "A");
+				addPlanTask.getTaskArgs().put("plan_type", type);
+				addPlanTask.getTaskArgs().put("plan_visit_date", planDate);
 				addPlanTask.setListener(AddPlanActivity.this);
 				addPlanTask.start();
 			}
@@ -88,9 +96,9 @@ public class AddPlanActivity extends BaseDetailActivity implements ITaskListener
 	@Override
 	public void onTaskFinished(Task task) {
 		this.dismissDialog();
-		Object result = task.getResult();
-		String flag = result.toString();
-		if (flag.equalsIgnoreCase("1")) { //添加成功
+		NetObject result = ((HttpPostTask)task).getResult();
+		String code = result.stringForKey("code");
+		if (code.equalsIgnoreCase("0")) { //添加成功
 			this.showDialog("提示", "创建计划成功", new DialogInterface.OnClickListener() { //点击确定后返回前一个页面
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -104,8 +112,8 @@ public class AddPlanActivity extends BaseDetailActivity implements ITaskListener
 					finish();
 				}
 			});
-		} else if (flag.equalsIgnoreCase("3")) { //添加成功
-			this.showDialog("提示", "只能为当天或将来创建计划", null);
+//		} else if (code.equalsIgnoreCase("3")) { //添加成功
+//			this.showDialog("提示", "只能为当天或将来创建计划", null);
 		} else {
 			this.showDialog("提示", "创建计划失败，请稍后重试", null);
 		}

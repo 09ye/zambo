@@ -17,7 +17,9 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.mobilitychina.intf.ITaskListener;
 import com.mobilitychina.intf.Task;
+import com.mobilitychina.net.HttpPostTask;
 import com.mobilitychina.net.SoapTask;
+import com.mobilitychina.util.NetObject;
 import com.mobilitychina.zambo.R;
 import com.mobilitychina.zambo.app.BaseDetailActivity;
 import com.mobilitychina.zambo.app.ZamboApplication;
@@ -88,7 +90,7 @@ public class SelectCustomerActivity extends BaseDetailActivity implements OnItem
 	public void onTaskFinished(Task task) {
 		getCustomerListTask = null;
 		dismissDialog();
-		SoapObject result = (SoapObject) task.getResult();
+		NetObject result = ((HttpPostTask)task).getResult();
 		List<CustomerInfo> custInfoList = CustomerInfoManager.getInstance().parseCustomerInfoList(result);
 		if (custInfoList == null) {
 			showErrorAlert();

@@ -75,7 +75,7 @@ public class MainActivity extends TabViewActivity implements EventListener, BusD
 					ConfigDefinition.INTENT_ACTION_SERVICE_SETUP)		) {//订阅
 				NotificationService.instance().addBusDelegate(MainActivity.this);
 				MsgSenderInfo msg = new MsgSenderInfo();
-				msg.setClientId(UserInfoManager.getInstance().getPhone());
+				msg.setClientId(UserInfoManager.getInstance().getUserId());
 				msg.setMsgId(MsgDefine.MSG_CONFIG_UPDATE);
 				NotificationService.instance().sendMsg(msg);
 			}

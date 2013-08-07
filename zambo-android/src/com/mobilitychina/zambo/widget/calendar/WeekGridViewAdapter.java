@@ -155,10 +155,10 @@ public class WeekGridViewAdapter extends BaseAdapter {
 		// final int iMonth = calCalendar.get(Calendar.MONTH);
 		final int iDay = calCalendar.get(Calendar.DAY_OF_WEEK);
 		iv.setBackgroundColor(resources.getColor(R.color.calendar_item_background));
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String date = df.format(myDate);
 
-		TextView txtToDay = new TextView(activity);//
+		TextView txtToDay = new TextView(activity);
 		txtToDay.setGravity(Gravity.CENTER_HORIZONTAL);
 		txtToDay.setTextSize(9);
 		if (equalsDate(calToday.getTime(), myDate)) {

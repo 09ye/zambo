@@ -21,6 +21,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.analytics.tracking.android.Log;
 import com.mobilitychina.zambo.R;
 import com.mobilitychina.zambo.business.plan.data.PlanInfo;
 
@@ -146,7 +147,7 @@ public class CalendarGridViewAdapter extends BaseAdapter {
 		final int iDay = calCalendar.get(Calendar.DAY_OF_WEEK);
 
 		iv.setBackgroundColor(resources.getColor(R.color.calendar_item_background));
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String date = df.format(myDate);
 		TextView txtToDay = new TextView(activity);
 		txtToDay.setGravity(Gravity.CENTER_HORIZONTAL);

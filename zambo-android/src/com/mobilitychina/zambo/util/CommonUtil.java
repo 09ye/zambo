@@ -29,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.mobilitychina.zambo.R;
+import com.mobilitychina.zambo.service.HttpPostService;
 import com.mobilitychina.zambo.service.SoapService;
 import com.mobilitychina.zambo.widget.LoadingItem;
 import com.mobilitychina.zambo.widget.RetryItem;
@@ -105,7 +106,7 @@ public class CommonUtil {
 		SharedPreferences.Editor editor = context.getSharedPreferences(ConfigDefinition.PREFS_DATA, 0).edit();
 		editor.putInt("switchMainServer", isMainServer);
 		editor.commit();
-		SoapService.switchServer(isMainServer);
+		HttpPostService.switchServer(isMainServer);
 	}
 //	public static boolean isMainService(){
 //		

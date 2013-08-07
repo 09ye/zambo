@@ -1,5 +1,6 @@
 package com.mobilitychina.zambo.business.customer.data;
 
+
 import com.mobilitychina.zambo.service.resps.KSoapRespField;
 
 public class CustomerInfo {
@@ -67,6 +68,7 @@ public class CustomerInfo {
 
 	protected String nextPlanVisitDate;
 	protected Boolean isLocked = false;
+	
 	public Boolean getIsLocked() {
 		return isLocked;
 	}

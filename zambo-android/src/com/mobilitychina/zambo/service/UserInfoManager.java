@@ -15,9 +15,9 @@ import android.content.SharedPreferences;
  */
 public class UserInfoManager {
 	/**
-	 * 手机号，当前将手机号作为帐号处理
+	 * 用户登录帐号
 	 */
-	private String phone;
+	private String userId;
 	/**
 	 * 用户名称
 	 */
@@ -72,8 +72,8 @@ public class UserInfoManager {
 		SharedPreferences pref = context.getSharedPreferences(ConfigDefinition.PREFS_DATA, Context.MODE_PRIVATE);
 		if (isWrite) {
 			SharedPreferences.Editor editor = pref.edit();
-			if (phone != null) {
-				editor.putString("phone", phone);
+			if (userId != null) {
+				editor.putString("userId", userId);
 			}
 			if (name != null) {
 				editor.putString("name", name);
@@ -93,21 +93,22 @@ public class UserInfoManager {
 			}
 			editor.commit();
 		} else {
-			this.phone = pref.getString("phone", null);
+			this.userId = pref.getString("userId", null);
 			this.name = pref.getString("name", null);
 			this.password = pref.getString("password", null);
 			this.lastLoginTime = pref.getLong("lastlogintime", 0);
 			this.posId = pref.getString("posid", null);
 			this.favoriteId = pref.getString("favoriteId", null);
+			this.definitUrl = pref.getString("definitUrl", "http://192.168.11.198:8091/");
 		}
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getName() {
@@ -169,7 +170,7 @@ public class UserInfoManager {
 	}
 
 	public void print() {
-		Log.i("userInfo","phone="+phone+" pwd="+password+" name="+name+" posid="+posId+" isLeader="+isLeader);
+		Log.i("userInfo","userId="+userId+" pwd="+password+" name="+name+" posid="+posId+" isLeader="+isLeader);
 	}
 	
 }

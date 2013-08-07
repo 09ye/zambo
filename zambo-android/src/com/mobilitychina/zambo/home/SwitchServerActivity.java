@@ -26,7 +26,6 @@ import com.mobilitychina.log.McLogger;
 import com.mobilitychina.util.Log;
 import com.mobilitychina.zambo.R;
 import com.mobilitychina.zambo.app.BaseDetailActivity;
-import com.mobilitychina.zambo.app.ZamboApplication;
 import com.mobilitychina.zambo.service.UserInfoManager;
 import com.mobilitychina.zambo.util.CommonUtil;
 import com.mobilitychina.zambo.util.MsLogType;
@@ -39,10 +38,6 @@ public class SwitchServerActivity extends BaseDetailActivity implements OnClickL
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.switch_server);
-		
-		
-		
-		
 		this.setTitle("设置");
 		this.getTitlebar().setRightButton("上传信息", this);
 		radioGroup = (RadioGroup) this.findViewById(R.id.switchServerRadioGroup);
@@ -114,11 +109,7 @@ public class SwitchServerActivity extends BaseDetailActivity implements OnClickL
 					LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				    final LinearLayout layout = (LinearLayout)inflater.inflate(R.layout.dialogview, null);
 					definit = (EditText)layout.findViewById(R.id.defindUrl);
-					definit.setText("http://192.168.11.198:8081");
-					UserInfoManager.getInstance().sync(ZamboApplication.getInstance().getApplicationContext(), false);
-					if(UserInfoManager.getInstance().getDefinitUrl()!=null){
-						definit.setText(UserInfoManager.getInstance().getDefinitUrl());
-					}
+					definit.setText(UserInfoManager.getInstance().getDefinitUrl());
 					
 					Builder builder = new Builder(SwitchServerActivity.this);
 					builder.setTitle("输入自定义地址");

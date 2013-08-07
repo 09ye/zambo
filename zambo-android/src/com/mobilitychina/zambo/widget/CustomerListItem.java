@@ -61,8 +61,7 @@ public class CustomerListItem extends RelativeLayout {
 	 */
 	public void show(CustomerInfo customerInfo) {
 		this.tvTitle.setText(customerInfo.getCustName());
-		this.tvVisitNum.setText(customerInfo.getCustType());
-		/*this.tvVisitNum.setText(customerInfo.getVisitedNum() + "/" + customerInfo.getPlanVisitNum());
+		this.tvVisitNum.setText(customerInfo.getVisitedNum() + "/" + customerInfo.getPlanVisitNum());
 
 		if (customerInfo.getPlanVisitNum() > 0) {
 			this.progressVisitNum.setProgress((float) customerInfo.getVisitedNum() / customerInfo.getPlanVisitNum());
@@ -73,7 +72,7 @@ public class CustomerListItem extends RelativeLayout {
 			this.ivYearVisit.setVisibility(View.VISIBLE);
 		} else {
 			this.ivYearVisit.setVisibility(View.GONE);
-		}*/
+		}
 	}
 
 	/**

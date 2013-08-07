@@ -20,7 +20,7 @@ public class PlanInfo extends BasePlanInfo {
     	if (list == null) {
     		return newlist;
     	}
-    	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+    	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     	for (PlanInfo planInfo : list) {
 			if(planInfo.getModify_date()!=null){
 				if(planInfo.getModify_date().equalsIgnoreCase(df.format(date))){

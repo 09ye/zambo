@@ -41,7 +41,10 @@ import android.widget.ViewFlipper;
 import com.mobilitychina.intf.ITaskListener;
 import com.mobilitychina.intf.Task;
 import com.mobilitychina.log.McLogger;
+import com.mobilitychina.net.HttpPostTask;
 import com.mobilitychina.net.SoapTask;
+import com.mobilitychina.util.Log;
+import com.mobilitychina.util.NetObject;
 import com.mobilitychina.zambo.R;
 import com.mobilitychina.zambo.app.BaseActivity;
 import com.mobilitychina.zambo.app.BaseDetailActivity;
@@ -51,8 +54,8 @@ import com.mobilitychina.zambo.business.customer.data.CustomerInfo;
 import com.mobilitychina.zambo.business.plan.data.GridViewTitleAdapter;
 import com.mobilitychina.zambo.business.plan.data.PlanInfo;
 import com.mobilitychina.zambo.service.CustomerInfoManager;
+import com.mobilitychina.zambo.service.HttpPostService;
 import com.mobilitychina.zambo.service.SoapService;
-import com.mobilitychina.zambo.service.resps.RespFactory;
 import com.mobilitychina.zambo.util.CommonUtil;
 import com.mobilitychina.zambo.util.ConfigDefinition;
 import com.mobilitychina.zambo.util.MsLogType;
@@ -88,9 +91,9 @@ public class PlanCenterFragment extends ListFragment implements OnTouchListener,
 	private int currentMonth = 0; // 当前视图月
 	private int currentYear = 0; // 当前视图年
 	private int currentWeek = 0;
-	private SoapTask mTaskPlanlist;
+	private HttpPostTask mTaskPlanlist;
 	private SoapTask mTaskPlanDelete;
-	private List<PlanInfo> mPlanInfoList;
+	private List<PlanInfo> mPlanInfoList = new ArrayList<PlanInfo>();
 	private Button mBtnChangeCalendarStyle;
 	private Button mBtnPre;
 	private Button mBtnNext;
@@ -172,7 +175,7 @@ public class PlanCenterFragment extends ListFragment implements OnTouchListener,
 	@Override
    public void onResume(){
 	   super.onResume();
-	   this.initPlanList();
+//	   this.initPlanList();
    }
 	
 	private boolean isFirstRequestPlanList = true;
@@ -200,11 +203,20 @@ public class PlanCenterFragment extends ListFragment implements OnTouchListener,
 		if(mTaskPlanlist != null){
 			mTaskPlanlist.setListener(null);
 		}
+		mTaskPlanlist = new HttpPostTask(ZamboApplication.getInstance().getApplicationContext());
+		mTaskPlanlist.setUrl(HttpPostService.SOAP_URL+"get_visit_plan__list" );
 		if(isMonthMode()){
-			mTaskPlanlist = SoapService.getPlanlistByEmployeeTask( format.format(gMouthAdapter.getCalendarFirstDate().getTime()), format.format(gMouthAdapter.getCalendarLastDate().getTime()),mEmployeeId);
+			mTaskPlanlist.getTaskArgs().put("emp_id", "3");
+			mTaskPlanlist.getTaskArgs().put("plan_status", "A");
+			mTaskPlanlist.getTaskArgs().put("plan_start_date", format.format(gMouthAdapter.getCalendarFirstDate().getTime()));
+			mTaskPlanlist.getTaskArgs().put("plan_end_date", format.format(gMouthAdapter.getCalendarLastDate().getTime()));
 		}else{
-			mTaskPlanlist = SoapService.getPlanlistByEmployeeTask( format.format(gWeekAdapter.getCalendarFirstDate().getTime()), format.format(gWeekAdapter.getCalendarLastDate().getTime()),mEmployeeId);
+			mTaskPlanlist.getTaskArgs().put("emp_id", "3");
+			mTaskPlanlist.getTaskArgs().put("plan_status", "A");
+			mTaskPlanlist.getTaskArgs().put("plan_start_date", format.format(gWeekAdapter.getCalendarFirstDate().getTime()));
+			mTaskPlanlist.getTaskArgs().put("plan_end_date", format.format(gWeekAdapter.getCalendarLastDate().getTime()));
 		}
+		
 		McLogger.getInstance().addLog(MsLogType.TYPE_SYS,MsLogType.ACT_PLANCENTER,"获取列表");
 		
 		mTaskPlanlist.setMaxTryCount(3);
@@ -455,7 +467,7 @@ public class PlanCenterFragment extends ListFragment implements OnTouchListener,
 					calSelected.setTime(date);
 					checkAddMode();
 					
-					mListAdapter.data = PlanInfo.getListByData(mPlanInfoList,date);
+					mListAdapter.data =  PlanInfo.getListByData(mPlanInfoList,date);
 					mListAdapter.notifyDataSetChanged();
 					Statistics.sendEvent("plan", "dayselected", "", (long) 0);
 				}
@@ -579,7 +591,7 @@ public class PlanCenterFragment extends ListFragment implements OnTouchListener,
 			if (data.get(position).getCustDetailId() != 0) {
 				// final int a = position;
 				// 绑定数据、以及事件触发
-				if ("L".equals(data.get(position).getPlanStatus())) {
+				if ("T".equals(data.get(position).getPlanStatus())) {
 					planitem.titleView.setText(position + 1 + "-" + data.size() + " "
 							+ data.get(position).getCustName() + "(临)");
 				} else {
@@ -634,7 +646,6 @@ public class PlanCenterFragment extends ListFragment implements OnTouchListener,
 		if (mTaskPlanDelete == arg0) {
 			if (("2").equals(arg0.getResult().toString())){	
 				this.initPlanList();
-				
 				Intent intent = new Intent();
 				intent.setAction(ConfigDefinition.INTENT_ACTION_DELETEPLANCOMPLETE);
 				this.getActivity().sendBroadcast(intent);
@@ -653,9 +664,26 @@ public class PlanCenterFragment extends ListFragment implements OnTouchListener,
 			if (this.getActivity() instanceof BaseActivity) {
 				((BaseActivity) this.getActivity()).dismissDialog();
 			}
+			NetObject result = ((HttpPostTask)arg0).getResult();
+			List<NetObject> listNet = result.listForKey("data");
+			Log.i("log","PlanCenter size:" +listNet.size());
+			if(mPlanInfoList!=null){
+				mPlanInfoList.clear();
+			}
+			for (NetObject netObject : listNet) {
+				PlanInfo plan = new PlanInfo();
+//			    CustomerInfo CustomerInfo = CustomerInfoManager.getInstance().getCustomerById(custId);
+				plan.setId(Integer.valueOf((netObject.stringForKey("id"))));
+			    plan.setCustDetailId((Integer) netObject.arrayForKey("cust_id").get(0));
+			    plan.setCustName((String) netObject.arrayForKey("cust_id").get(1));
+			    plan.setModify_date(netObject.stringForKey("plan_visit_date"));
+			    plan.setPlanStatus(netObject.stringForKey("plan_type"));
+				mPlanInfoList.add(plan);
+			}
+			
 			McLogger.getInstance().addLog(MsLogType.TYPE_SYS,MsLogType.ACT_PLANCENTER,"获取列表完成");
-			mPlanInfoList = RespFactory.getService().fromResp(PlanInfo.class,
-					arg0.getResult());
+//			mPlanInfoList = RespFactory.getService().fromResp(CustomerInfo.class,
+//					arg0.getResult());
 			if(this.getActivity()==null){
 				System.out.println("PlanCenter==null");
 			}else{

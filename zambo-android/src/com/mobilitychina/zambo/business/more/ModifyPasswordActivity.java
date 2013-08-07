@@ -144,7 +144,7 @@ public class ModifyPasswordActivity extends BaseDetailActivity implements ITaskL
 		}
 
 		this.showProgressDialog("正在处理...");
-		modifyPasswordTask = SoapService.getModifyPasswordTask(this, UserInfoManager.getInstance().getPhone(),
+		modifyPasswordTask = SoapService.getModifyPasswordTask(this, UserInfoManager.getInstance().getUserId(),
 				old_password, new_password);
 		modifyPasswordTask.setListener(this);
 		modifyPasswordTask.start();

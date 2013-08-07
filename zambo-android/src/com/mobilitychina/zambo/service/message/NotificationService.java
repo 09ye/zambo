@@ -46,7 +46,7 @@ public class NotificationService extends Service implements BusDelegate, ITaskLi
 			// TODO Auto-generated method stub
 			while (true){
 				MsgSenderInfo msg = new MsgSenderInfo();
-				msg.setClientId(UserInfoManager.getInstance().getPhone());
+				msg.setClientId(UserInfoManager.getInstance().getUserId());
 				msg.setMsgId(MsgDefine.MSG_MESSAGE_HEART);
 				mSender.addMsg(msg);
 				try {

@@ -1,12 +1,9 @@
 ﻿package com.mobilitychina.zambo.home;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
@@ -18,27 +15,25 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.style.BulletSpan;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.mobilitychina.crash.CrashHandler;
 import com.mobilitychina.intf.ITaskListener;
 import com.mobilitychina.intf.Task;
 import com.mobilitychina.log.McLogger;
-import com.mobilitychina.net.SoapTask;
+import com.mobilitychina.net.HttpPostTask;
 import com.mobilitychina.util.Environment;
 import com.mobilitychina.util.Log;
+import com.mobilitychina.util.NetObject;
 import com.mobilitychina.zambo.R;
 import com.mobilitychina.zambo.app.BaseActivity;
 import com.mobilitychina.zambo.business.more.ModifyPasswordActivity;
-import com.mobilitychina.zambo.service.SoapService;
+import com.mobilitychina.zambo.service.HttpPostService;
 import com.mobilitychina.zambo.service.UserInfoManager;
 import com.mobilitychina.zambo.util.CommonUtil;
 import com.mobilitychina.zambo.util.ConfigDefinition;
@@ -79,7 +74,7 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 		}
 	};
 
-	private SoapTask loginTask;
+	private HttpPostTask loginTask;
 
 	protected boolean shouldCustomTitle() {
 		return false;
@@ -107,7 +102,6 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 
 		}
 		
-		 ConfigHelper.getInstance().addListener(this);
 		UserInfoManager.getInstance().sync(this, false);
 
 		this.setContentView(R.layout.activity_login);
@@ -154,7 +148,8 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 					}
 				});
 
-		etSalescode.setText(UserInfoManager.getInstance().getPhone());
+		etSalescode.setText(UserInfoManager.getInstance().getUserId());
+		etPassword.setText(UserInfoManager.getInstance().getPassword());
 
 		loginBtn = (Button) findViewById(R.id.commit);
 		loginBtn.setOnClickListener(new OnClickListener() {
@@ -262,10 +257,13 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 
 		etPassword.clearFocus();
 		etSalescode.clearFocus();
+		Environment.getInstance().setLoginId(phone);
+		Environment.getInstance().setPassword(password);
 		this.showProgressDialog("正在登录...");
 		McLogger.getInstance().addLog(MsLogType.TYPE_SYS,MsLogType.ACT_LOGIN,"开始登陆");
-		loginTask = SoapService.getLoginTask(this, phone, password,
-				CommonUtil.getIMEI(this));
+		loginTask = new HttpPostTask(this);
+		loginTask.setUrl(HttpPostService.SOAP_URL+"login");
+		loginTask.getTaskArgs().put("imei", CommonUtil.getIMEI(this));
 		loginTask.setListener(this);
 		loginTask.start();
 	}
@@ -329,6 +327,20 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 				});
 		builder.show();
 	}
+	public void showErrorMessage(String strResId) {
+		Builder builder = new Builder(LoginActivity.this);
+		builder.setTitle(R.string.login_err_title);
+		builder.setMessage(strResId);
+		builder.setPositiveButton(R.string.confirm,
+				new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				updateButtonLook(false);
+				dialog.cancel();
+			}
+		});
+		builder.show();
+	}
 
 	@Override
 	public void onTaskFailed(Task task) {
@@ -340,28 +352,24 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 	@Override
 	public void onTaskFinished(Task task) {
 		this.dismissDialog();
-		Object result = task.getResult();
-		System.out.println("reult--"+result);
-		//result = new SoapPrimitive("","anyType","rocket&780&4&N");
-		if (result == null) {
-			Log.d(TAG, "fall login.can not connect to webservice.");
-			this.showErrorMessage(R.string.err_network);
-			sendEvent("login", "login", "网络错误", 0);
+		NetObject result = ((HttpPostTask) task).getResult();
+		if(result==null)
 			return;
-		}
-		String code = "-1";
-		try {
-			JSONObject jsonResult = new JSONObject(result.toString());
-			code = jsonResult.getString("code");
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
+	    Log.i("HttpPostTask","login message:" +result.toString());
+	  
+		String code = result.stringForKey("code");
+		String message = result.stringForKey("message");
 		if(code.equals("-2")){
 			Log.d(TAG, "Login fail check password and phone ..");
 			showErrorMessage(R.string.login_err_identity);
 			sendEvent("login", "login", "账号密码错误", 0);
+			return;
+		}
+		if(Integer.valueOf(code)>0){
+			Log.d(TAG, "Login fail check password and phone ..");
+			if(message==null||message.equals(" "))
+			showErrorMessage("操作失败");
+			showErrorMessage(message);
 			return;
 		}
 		/*String[] loginResultArray = result.toString().split("&");
@@ -407,7 +415,7 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 		Environment.getInstance().setClientID(etSalescode.getText().toString());//id
 		
 		UserInfoManager.getInstance()
-				.setPhone(etSalescode.getText().toString());
+				.setUserId(etSalescode.getText().toString());
 		UserInfoManager.getInstance().setPassword(
 				etPassword.getText().toString());
 //		UserInfoManager.getInstance().setName(name);
@@ -415,16 +423,26 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 //		UserInfoManager.getInstance().setLeader(isLeader.equalsIgnoreCase("Y"));
 		UserInfoManager.getInstance().sync(this, true);
 		UserInfoManager.getInstance().print();
+//		
+//		if ("2".equals(code)) { // 第一次登录，进入修改密码
+//			Log.d(TAG, "the fisrt login please modify your password..");
+//			Intent intent = new Intent(LoginActivity.this,
+//					ModifyPasswordActivity.class);
+//			intent.putExtra("firstLogin", true);
+//			startActivity(intent);
+//			sendEvent("login", "firstLogin", "", 0);
+//			finish();
+//		} else {
+//			Intent intent = new Intent(this, MainActivity.class);
+//			intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//			intent.putExtra("empId", "");
+//			intent.putExtra("flag", "2");
+//			intent.putExtra("firstLogin", "F");
+//			startActivity(intent);
+//			this.finish();
+//		}
 		
-		if ("1".equals(code)) { // 第一次登录，进入修改密码
-			Log.d(TAG, "the fisrt login please modify your password..");
-			Intent intent = new Intent(LoginActivity.this,
-					ModifyPasswordActivity.class);
-			intent.putExtra("firstLogin", true);
-			startActivity(intent);
-			sendEvent("login", "firstLogin", "", 0);
-			finish();
-		} else {
+		if(code.equals("0")){
 			Intent intent = new Intent(this, MainActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			intent.putExtra("empId", "");
@@ -433,6 +451,7 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 			startActivity(intent);
 			this.finish();
 		}
+		
 		//McLogger.getInstance().addLog(MsLogType.TYPE_SYS,MsLogType.ACT_LOGIN,loginFlag);
 	}
 

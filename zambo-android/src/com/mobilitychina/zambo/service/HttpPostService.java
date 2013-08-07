@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -13,18 +11,20 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 
 import com.mobilitychina.net.SoapTask;
-import com.mobilitychina.util.Log;
 import com.mobilitychina.zambo.app.ZamboApplication;
 import com.mobilitychina.zambo.util.CommonUtil;
 import com.mobilitychina.zambo.util.ConfigDefinition;
 
-public class SoapService {
+public class HttpPostService {
 	private static final String MAIN_OPENAPIURL = ConfigDefinition.URL_MAIN_OPENAPI;
 	private static final String TEST_OPENAPIURL = ConfigDefinition.URL_TEST_OPENAPI;
 
 	private static final String OPENAPI_PATH = "/openApiPlatform/Service/siemensService";
 
 	public static String SOAP_URL = MAIN_OPENAPIURL + OPENAPI_PATH;
+
+	
+	
 	public static final String SOAP_NAMESPACE = "http://siemens.api.openApiPlatform.nfsq.com/";
 
 	public static final String LOGIN_METHOD = "siemensLogin";
@@ -104,9 +104,10 @@ public class SoapService {
 	 * @param deviceid
 	 * @return
 	 */
-	public static SoapTask getLoginTask(Context context, String name, String password, String deviceid) {
-		SoapTask task = new SoapTask(context);
-		task.setUrl(SoapService.SOAP_URL+"/login");
+	/*public static HttpPostTask getLoginTask(Context context, String name, String password, String deviceid) {
+		HttpPostTask task = new HttpPostTask(context);
+		task.setUrl(HttpPostService.SOAP_URL+"/login");
+		task.getTaskArgs();
 		JSONObject json = new JSONObject();
 		JSONObject message = new JSONObject();
 		try {
@@ -119,10 +120,10 @@ public class SoapService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		task.setPostString(json.toString());
+		task.setPostString(json.toString());
 		return task;
 	}
-
+*/
 	/**
 	 * 修改密码
 	 * 
@@ -132,9 +133,9 @@ public class SoapService {
 	 */
 	public static SoapTask getModifyPasswordTask(Context context, String phone, String oldPassword, String newPassword) {
 		SoapTask task = new SoapTask(context);
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.UPDATE_SIEMENS_EMP);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.UPDATE_SIEMENS_EMP);
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", phone));
@@ -152,7 +153,7 @@ public class SoapService {
 	 *            "A"=我的团队,"I"=我的
 	 * @return 客户列表对象
 	 */
-	public static SoapTask getAllZamboCustomersTask(Context context, String type) {
+	/*public static SoapTask getAllZamboCustomersTask(Context context, String type) {
 		SoapTask task = new SoapTask(context);
 		JSONObject json = new JSONObject();
 		JSONObject message = new JSONObject();
@@ -167,10 +168,10 @@ public class SoapService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		task.setUrl(SoapService.SOAP_URL+"/get_customer");
-//		task.setPostString(json.toString());
+		task.setUrl(HttpPostService.SOAP_URL+"/get_customer");
+		task.setPostString(json.toString());
 		return task;
-	}
+	}*/
 
 	/**
 	 * 获取客户类型
@@ -181,8 +182,8 @@ public class SoapService {
 	 */
 	public static SoapTask getSiemensCustType(String type) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
 		task.setSoapMethod("getSiemensCustType");
 		//task.setCacheType(CacheType.NOTKEYBUSSINESS);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -206,8 +207,8 @@ public class SoapService {
 	 */
 	public static SoapTask getCoverRate(String custType, String type) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
 		task.setSoapMethod("getCoverRate");
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -226,8 +227,8 @@ public class SoapService {
 	 */
 	public static SoapTask insertMessage(String client, String msgid, String version, String content,String tag){
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
 		task.setSoapMethod("insertMessage");
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -254,8 +255,8 @@ public class SoapService {
 	 */
 	public static SoapTask getKpiCountMess(String custType, String custId, String type) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
 		task.setSoapMethod("getKpiCountMess");
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -281,9 +282,9 @@ public class SoapService {
 	 */
 	public static SoapTask getPlanlistTask(String startDay, String endDay) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_VISTPLAN_METHOD);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_VISTPLAN_METHOD);
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", startDay));
@@ -302,9 +303,9 @@ public class SoapService {
 	 */
 	public static SoapTask getPlanlistByEmployeeTask(String startDay, String endDay,String empid) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_VISTPLAN_EMP_METHOD);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_VISTPLAN_EMP_METHOD);
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", startDay));
@@ -325,10 +326,10 @@ public class SoapService {
 	 */
 	public static SoapTask getMessageTask(Boolean isOnlyToday) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
 
-		task.setSoapMethod(SoapService.GET_SENDWAITMESS_METHOD);
+		task.setSoapMethod(HttpPostService.GET_SENDWAITMESS_METHOD);
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
@@ -350,9 +351,9 @@ public class SoapService {
 	 */
 	public static SoapTask getProjectRecordListTask(String customerId) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_SIEMENS_CUSTVISITED_PRP_MESS);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_SIEMENS_CUSTVISITED_PRP_MESS);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", customerId));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getUserId()));
@@ -370,9 +371,9 @@ public class SoapService {
 	 */
 	public static SoapTask getFollowupListTask(String customerId) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_PLAN_VISIT_LOGS);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_PLAN_VISIT_LOGS);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", customerId));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getUserId()));
@@ -387,9 +388,9 @@ public class SoapService {
 	 */
 	public static SoapTask getFollowupListForCurrVisitTask(String planVisitID) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_FOLLOW_UP_LOGS_BY_VISIT);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_FOLLOW_UP_LOGS_BY_VISIT);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", planVisitID));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getUserId()));
@@ -415,9 +416,9 @@ public class SoapService {
 	public static SoapTask insertSiemensUpload(String report, String detail, String share, String dateLineId,
 			String detailCustId, String type, String reportObject, String id, String remark) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.INSERT_SIEMENS_UPLOAD);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.INSERT_SIEMENS_UPLOAD);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", report));
 		params.add(new BasicNameValuePair("arg1", detail));
@@ -450,9 +451,9 @@ public class SoapService {
 	public static SoapTask getCheckInTask(String custId, String datelineId, String longitude, String latitude,String accuracy){
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
 		PackageManager manager = ZamboApplication.getInstance().getApplicationContext().getPackageManager();
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.UPLOADGPS);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.UPLOADGPS);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getPassword()));
@@ -487,9 +488,9 @@ public class SoapService {
 	public static SoapTask getCheckInAndUpdateLocationTask(String custId, String datelineId, String longitude, String latitude,String accuracy) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
 		PackageManager manager = ZamboApplication.getInstance().getApplicationContext().getPackageManager();
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.UPLOADGPSV2NEW);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.UPLOADGPSV2NEW);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getPassword()));
@@ -515,9 +516,9 @@ public class SoapService {
 	
 	public static SoapTask getOfflineCheckInTask(String custId, String datelineId, String longitude, String latitude,String accuracy,String datetime){
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.UPLOADGPS);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.UPLOADGPS);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getPassword()));
@@ -541,9 +542,9 @@ public class SoapService {
 	 */
 	public static SoapTask getEmpListTask(String posId) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_SIEMENS_EMP);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_SIEMENS_EMP);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getPassword()));
@@ -556,9 +557,9 @@ public class SoapService {
 	// load 父类
 	public static SoapTask getParentEmpListTask(String posId) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_SIEMENS_PEMP);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_SIEMENS_PEMP);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getPassword()));
@@ -577,9 +578,9 @@ public class SoapService {
 	 */
 	public static SoapTask getSiemensProjectDetailTask(String customerId, String proNumber) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_SIEMENS_PROJECT_DETAIL);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_SIEMENS_PROJECT_DETAIL);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", customerId));
 		params.add(new BasicNameValuePair("arg1", proNumber));
@@ -596,9 +597,9 @@ public class SoapService {
 	 */
 	public static SoapTask getSiemensProjectListTask() {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_SIEMENS_DICT);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_SIEMENS_DICT);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", "pro@siemens"));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getUserId()));
@@ -615,9 +616,9 @@ public class SoapService {
 	 */
 	public static SoapTask getSiemensProjectStatusTask() {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GETSIEMENSPROPROGRESSMESS);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GETSIEMENSPROPROGRESSMESS);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", "3252"));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getUserId()));
@@ -633,9 +634,9 @@ public class SoapService {
 	 */
 	public static SoapTask getSendMessageTask(String smscontent, String meg) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.INSTRUCTION_TO_LOWERLEVEL);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.INSTRUCTION_TO_LOWERLEVEL);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getPassword()));
@@ -651,10 +652,10 @@ public class SoapService {
 	 * @param planInfo
 	 * @return
 	 */
-	public static SoapTask createVisitPlanTask(String custIds,String type,String date) {
+	/*public static SoapTask createVisitPlanTask(String custIds,String type,String date) {
 		UserInfoManager.getInstance().sync(ZamboApplication.getInstance().getApplicationContext(), false);
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL+"/create_visit_plan");
+		task.setUrl(HttpPostService.SOAP_URL+"/create_visit_plan");
 //		task.setUrl("http://192.168.11.195:8091/create_visit_plan");
 		JSONObject json = new JSONObject();
 		JSONObject message = new JSONObject();
@@ -674,9 +675,9 @@ public class SoapService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		task.setPostString(json.toString());
+		task.setPostString(json.toString());
 		return task;
-	}
+	}*/
 
 	/**
 	 * 获取下级团队。 posid 职位id
@@ -685,9 +686,9 @@ public class SoapService {
 	 */
 	public static SoapTask getLowerTeamTask(String level) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_LOWER_TEAM);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_LOWER_TEAM);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getPassword()));
@@ -705,9 +706,9 @@ public class SoapService {
 	 */
 	public static SoapTask getMessageUnReadNum() {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_MESSAGE_UNREAD_NUM);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_MESSAGE_UNREAD_NUM);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getPassword()));
@@ -726,10 +727,10 @@ public class SoapService {
 	 */
 	public static SoapTask getMessageTask(String status, String type, Boolean isOnlyToday) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
 
-		task.setSoapMethod(SoapService.GET_SENDWAITMESS_METHOD_V2);
+		task.setSoapMethod(HttpPostService.GET_SENDWAITMESS_METHOD_V2);
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
@@ -750,10 +751,10 @@ public class SoapService {
 	 */
 	public static SoapTask getSendWaitMessReplyTask(String smsId) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
 
-		task.setSoapMethod(SoapService.GET_SENDWAItMESSREPLY);
+		task.setSoapMethod(HttpPostService.GET_SENDWAItMESSREPLY);
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
@@ -781,10 +782,10 @@ public class SoapService {
 
 	public static SoapTask instructionToLowerLevelV2(String smscontent, String teamPosId, String userPosId) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
 
-		task.setSoapMethod(SoapService.INSTRUCTION_TO_LOWERLEVELV2);
+		task.setSoapMethod(HttpPostService.INSTRUCTION_TO_LOWERLEVELV2);
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
@@ -805,10 +806,10 @@ public class SoapService {
 	 */
 	public static SoapTask getLowerUser() {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
 
-		task.setSoapMethod(SoapService.GET_LOWER_USER);
+		task.setSoapMethod(HttpPostService.GET_LOWER_USER);
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
@@ -829,10 +830,10 @@ public class SoapService {
 		// TODO Auto-generated method stub
 
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
 
-		task.setSoapMethod(SoapService.RESP_MESS_RESULT_METHOD);
+		task.setSoapMethod(HttpPostService.RESP_MESS_RESULT_METHOD);
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", messId));
@@ -853,8 +854,8 @@ public class SoapService {
 	 */
 	public static SoapTask getVistPlanMailRequestTask(String visitDate) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
 		task.setSoapMethod("vistPlanMailRequestByMonth");
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -877,9 +878,9 @@ public class SoapService {
 		// TODO Auto-generated method stub
 
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.DELETE_VISIT_PLAN_METHOD);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.DELETE_VISIT_PLAN_METHOD);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", datelineId));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getUserId()));
@@ -895,9 +896,9 @@ public class SoapService {
 	 */
 	public static SoapTask getReportEmpsTask() {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_REPORT_EMPS);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_REPORT_EMPS);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getPassword()));
@@ -911,9 +912,9 @@ public class SoapService {
 	 */
 	public static SoapTask getRecordSendWaitMessbyTypeTask(String smstype) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GER_RECORD_SENDEWAIT_MESS_BY_TYPE);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GER_RECORD_SENDEWAIT_MESS_BY_TYPE);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getPassword()));
@@ -928,9 +929,9 @@ public class SoapService {
 	 */
 	public static SoapTask getDeleteSendMessage(String id) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.DELETE_SENDER_WAIT_MESS);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.DELETE_SENDER_WAIT_MESS);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", UserInfoManager.getInstance().getUserId()));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getPassword()));
@@ -946,8 +947,8 @@ public class SoapService {
 	public static SoapTask sendMsgInfo(String mClientId,String mMsgId, String mMsgContent) {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
 		task.setUrl(ConfigDefinition.URL_PUSH + OPENAPI_PATH);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.SEND_MSGINFO);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.SEND_MSGINFO);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", mClientId));
 		params.add(new BasicNameValuePair("arg1", mMsgId));
@@ -964,9 +965,9 @@ public class SoapService {
 	public static SoapTask getDepartmentListTask() {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
 		
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_KESHI_MESS);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_KESHI_MESS);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", "324"));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getUserId()));
@@ -983,9 +984,9 @@ public class SoapService {
 	 */
 	public static SoapTask getJobTitleListTask() {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_POSITION_MESS);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_POSITION_MESS);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", "325"));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getUserId()));
@@ -1002,9 +1003,9 @@ public class SoapService {
 	 */
 	public static SoapTask getFacilityListTask() {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_LATENT_MESS);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_LATENT_MESS);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", "pro@siemens"));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getUserId()));
@@ -1021,9 +1022,9 @@ public class SoapService {
 	 */
 	public static SoapTask getNotifyTeamListTask() {
 		SoapTask task = new SoapTask(ZamboApplication.getInstance().getApplicationContext());
-		task.setUrl(SoapService.SOAP_URL);
-		task.setSoapNamespace(SoapService.SOAP_NAMESPACE);
-		task.setSoapMethod(SoapService.GET_NOTICE_MESS);
+		task.setUrl(HttpPostService.SOAP_URL);
+		task.setSoapNamespace(HttpPostService.SOAP_NAMESPACE);
+		task.setSoapMethod(HttpPostService.GET_NOTICE_MESS);
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("arg0", "326"));
 		params.add(new BasicNameValuePair("arg1", UserInfoManager.getInstance().getUserId()));
