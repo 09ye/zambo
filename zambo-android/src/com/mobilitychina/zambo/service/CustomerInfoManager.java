@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
+import android.app.AlertDialog.Builder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -372,10 +373,22 @@ public class CustomerInfoManager implements ITaskListener,BusDelegate {
 	}
 	@Override
 	public void onTaskFinished(Task task) {
+		
 		if (task == getCustomerListTask) {
 			McLogger.getInstance().addLog(MsLogType.TYPE_SYS,MsLogType.ACT_CUSTOMER,"获取列表成功");
 			NetObject result = ((HttpPostTask)task).getResult();
-			Log.i("HttpPostTask",task.getResult().toString());
+			String code = result.stringForKey("code");
+			String message = result.stringForKey("message");
+			Log.i("HttpPostTask",result.toString());
+			if(!code.equals("0")){
+				status = CustomerLoadStatus.FAILED;
+				Builder builder = new Builder(ZamboApplication.getInstance().getApplicationContext());
+				builder.setTitle("提示");
+				builder.setMessage(message);
+				builder.setPositiveButton("确定", null);
+				builder.setCancelable(false);
+				builder.show();
+			}
 			List<CustomerInfo> custInfoList = this.parseCustomerInfoList(result);
 			if (custInfoList != null) {
 				this.mCustomerinfoList.clear();

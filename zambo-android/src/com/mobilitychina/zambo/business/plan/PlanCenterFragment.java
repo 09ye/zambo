@@ -644,6 +644,7 @@ public class PlanCenterFragment extends ListFragment implements OnTouchListener,
 	public void onTaskFinished(Task arg0) {
 		// TODO Auto-generated method stub
 		if (mTaskPlanDelete == arg0) {
+			Log.i("HttpPostTask","删除计划:" +arg0.getResult().toString());
 			if (("2").equals(arg0.getResult().toString())){	
 				this.initPlanList();
 				Intent intent = new Intent();
@@ -665,8 +666,16 @@ public class PlanCenterFragment extends ListFragment implements OnTouchListener,
 				((BaseActivity) this.getActivity()).dismissDialog();
 			}
 			NetObject result = ((HttpPostTask)arg0).getResult();
+			Log.i("HttpPostTask", "计划中心:"+result.toString());
+			String code = result.stringForKey("code");
+			String message = result.stringForKey("message");
+			if(!code.equals("0")){
+					((BaseActivity) this.getActivity()).showDialog("提示", message, null);
+					mTaskPlanlist = null;
+					isFirstRequestPlanList = false;
+					return;
+			}
 			List<NetObject> listNet = result.listForKey("data");
-			Log.i("log","PlanCenter size:" +listNet.size());
 			if(mPlanInfoList!=null){
 				mPlanInfoList.clear();
 			}

@@ -544,7 +544,42 @@ public class CustomerFragment extends ListFragment {
 				}
 					view.setFavoriteSelect(select);
 			}
+			 ivFavoritView.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						CustomerInfo custInfo = (CustomerInfo) getItem(position);
+						if (custInfo != null) {
+							if (favoriteCustomerList == null) {
+								favoriteCustomerList = new ArrayList<CustomerInfo>();
+							}
+							boolean isExists = false;
+							for(CustomerInfo temp : favoriteCustomerList){
+								if (temp.getId().equalsIgnoreCase(custInfo.getId())) {
+									isExists = true;
+									favoriteCustomerList.remove(custInfo);							
+									removeFavoriteCustomerInfoFromAdapter(custInfo);
+//									ivFavoritView.startAnimation(AnimationUtils.loadAnimation(SiemensApplication.getInstance(), R.anim.slide_down));
+									break;
+								}
+							}
+						
+							
+							if (!isExists) {
+								favoriteCustomerList.add(custInfo);							
+								addFavoriteCustomerInfoToAdapter(custInfo);
+//								ivFavoritView.startAnimation(AnimationUtils.loadAnimation(SiemensApplication.getInstance(), R.anim.slide_up));
+							}	
+							
+							if(mSectionListAdapter != null){
+								mSectionListAdapter.notifyDataSetChanged();
+							}
+					}
+						
+					}
+				});
 			if (supportMultiSelect && selectedCustomerList != null) {
+				 ivFavoritView.setOnClickListener(null);
 				boolean selected = false;
 //				boolean select = false;
 				for (CustomerInfo temp : selectedCustomerList) {
@@ -558,40 +593,7 @@ public class CustomerFragment extends ListFragment {
 				}
 				view.setSelected(selected);
 			}
-             ivFavoritView.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					CustomerInfo custInfo = (CustomerInfo) getItem(position);
-					if (custInfo != null) {
-						if (favoriteCustomerList == null) {
-							favoriteCustomerList = new ArrayList<CustomerInfo>();
-						}
-						boolean isExists = false;
-						for(CustomerInfo temp : favoriteCustomerList){
-							if (temp.getId().equalsIgnoreCase(custInfo.getId())) {
-								isExists = true;
-								favoriteCustomerList.remove(custInfo);							
-								removeFavoriteCustomerInfoFromAdapter(custInfo);
-//								ivFavoritView.startAnimation(AnimationUtils.loadAnimation(SiemensApplication.getInstance(), R.anim.slide_down));
-								break;
-							}
-						}
-					
-						
-						if (!isExists) {
-							favoriteCustomerList.add(custInfo);							
-							addFavoriteCustomerInfoToAdapter(custInfo);
-//							ivFavoritView.startAnimation(AnimationUtils.loadAnimation(SiemensApplication.getInstance(), R.anim.slide_up));
-						}	
-						
-						if(mSectionListAdapter != null){
-							mSectionListAdapter.notifyDataSetChanged();
-						}
-				}
-					
-				}
-			});
+            
 			return view;
 		}
 		

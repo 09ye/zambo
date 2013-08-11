@@ -511,6 +511,14 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 
 		if (task == mTaskPlanlist) {
 			NetObject result = ((HttpPostTask)task).getResult();
+			String code = result.stringForKey("code");
+			if(!code.equals("0")){
+				((BaseActivity) this.getActivity()).showDialog("提示", "更新任务列表失败，请稍后再试..", null);
+				mTaskPlanlist = null;
+				isFirstRequestPlanList = false;
+				return;
+			}
+			
 			List<NetObject> listNet = result.listForKey("data");
 			Log.i("HttpPostTask",task.getResult().toString());
 			if(mPlanInfoList!=null){
@@ -524,7 +532,10 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 			    plan.setCustName((String) netObject.arrayForKey("cust_id").get(1));
 			    plan.setModify_date(netObject.stringForKey("plan_visit_date"));
 			    plan.setPlanStatus(netObject.stringForKey("plan_type"));
-			    plan.setVisited("Y");
+			    List<Object> listSignIn = netObject.arrayForKey("visit_sign_in");
+			    if(listSignIn!=null&&listSignIn.size()!=0){
+			    	plan.setVisited("Y");
+			    }
 				mPlanInfoList.add(plan);
 			}
 			McLogger.getInstance().addLog(MsLogType.TYPE_SYS,MsLogType.ACT_VISITE,"获取列表成功");
@@ -572,18 +583,11 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 		} else if (task == mTaskCheckIn || task == mTaskCheckInUpload) {
 			try{
 				NetObject result = ((HttpPostTask)task).getResult();
-				Log.i("HttpPostTask",task.getResult().toString());
+				Log.i("HttpPostTask","checkIn:"+task.getResult().toString());
 //				final int siginId = result.jsonObjectForKey("data").getInt("id");
-				String retMsg = result.stringForKey("message").replaceAll("[^\u4E00-\u9FA5]", "");;
+//				String retMsg = result.stringForKey("message").replaceAll("[^\u4E00-\u9FA5]", "");
+				String retMsg = result.stringForKey("message");
 				int retCode = Integer.valueOf(result.stringForKey("code"));
-//				if(retCode == 1){
-//					retMsg = "您当前使用的版本过低，请升级到最新版本.";
-//				}else if(retCode == 2){
-//					retMsg = "现在距您上次签到时间较短，系统暂不允许您进行签到，请稍后再试.";
-//				}else if(retCode == 3){
-//					retMsg = "今天尚有计划未跟进，请先完成跟进后再做签到！";
-//				}else if(retCode == 4){
-//					retMsg = "客户关联已取消.";
 				if(retCode==0){
 					checkinSuccessed = true;
 					Builder builder = new Builder(
@@ -601,9 +605,9 @@ public class TodayFragment extends ListFragment implements ITaskListener,
 						public void onClick(DialogInterface dialog, int which) 
 						{
 							if(checkinSuccessed){
-							int	custId = checkInPlanInfo.getCustDetailId();
+							int	planId = checkInPlanInfo.getId();
 								for (PlanInfo planInfo : mPlanInfoList) {
-									if (planInfo.getCustDetailId()==custId) {
+									if (planInfo.getId()==planId) {
 										planInfo.setVisited("Y");
 									}
 								}

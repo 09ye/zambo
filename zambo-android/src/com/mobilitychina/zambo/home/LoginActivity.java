@@ -355,7 +355,7 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 		NetObject result = ((HttpPostTask) task).getResult();
 		if(result==null)
 			return;
-	    Log.i("HttpPostTask","login message:" +result.toString());
+		Log.i("HttpPostTask","login message:" +result.toString());
 	  
 		String code = result.stringForKey("code");
 		String message = result.stringForKey("message");
@@ -369,6 +369,13 @@ public class LoginActivity extends BaseActivity implements ITaskListener,
 			Log.d(TAG, "Login fail check password and phone ..");
 			if(message==null||message.equals(" "))
 			showErrorMessage("操作失败");
+			showErrorMessage(message);
+			return;
+		}
+		if(Integer.valueOf(code)<0){
+			Log.d(TAG, "Login fail check password and phone ..");
+			if(message==null||message.equals(" "))
+				showErrorMessage("操作失败");
 			showErrorMessage(message);
 			return;
 		}

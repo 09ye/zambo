@@ -24,7 +24,9 @@ import android.widget.TextView;
 import com.mobilitychina.intf.ITaskListener;
 import com.mobilitychina.intf.Task;
 import com.mobilitychina.log.McLogger;
+import com.mobilitychina.net.HttpPostTask;
 import com.mobilitychina.net.SoapTask;
+import com.mobilitychina.util.NetObject;
 import com.mobilitychina.zambo.R;
 import com.mobilitychina.zambo.app.BaseActivity;
 import com.mobilitychina.zambo.app.BaseDetailActivity;
@@ -41,6 +43,7 @@ import com.mobilitychina.zambo.business.notifyteam.NotifyTeamListActivity;
 import com.mobilitychina.zambo.business.notifyteam.data.NotifyTeam;
 import com.mobilitychina.zambo.business.notifyteam.data.NotifyTeamManager;
 import com.mobilitychina.zambo.business.record.data.FollowupInfo;
+import com.mobilitychina.zambo.service.HttpPostService;
 import com.mobilitychina.zambo.service.SoapService;
 import com.mobilitychina.zambo.util.CommonUtil;
 import com.mobilitychina.zambo.util.ConfigDefinition;
@@ -74,7 +77,7 @@ public class FollowupDetailActivity extends BaseDetailActivity implements View.O
 	private String productdalei_all;
 	
 	private SoapTask getFollowupInfoTask;
-	private SoapTask saveFollowupTask;
+	private HttpPostTask saveFollowupTask;
 	private String if_send;// 是否发送通知；
 	private String require_content;// 通知
 	private LinearLayout linkmansView;
@@ -268,7 +271,7 @@ public class FollowupDetailActivity extends BaseDetailActivity implements View.O
 
 	private void saveFollowUp() {
 
-		StringBuilder sb = new StringBuilder();
+		/*	StringBuilder sb = new StringBuilder();
 		for (LinkmanItem item : linkmanItems) {
 			Department dp = (Department) item.getDepartmentTag();
 			JobTitle jt = (JobTitle) item.getJobTitleTag();
@@ -335,11 +338,16 @@ public class FollowupDetailActivity extends BaseDetailActivity implements View.O
 		if (nt != null) {
 			sb.append(nt.getId());
 		}
-		sb.append("&&");
+		sb.append("&&");*/
 
 		showProgressDialog("正在提交...");
-		saveFollowupTask = SoapService.insertSiemensUpload("", "", "", String.valueOf(planId),
-				String.valueOf(customerId), "1", "", followupId, sb.toString());
+		saveFollowupTask =  new HttpPostTask(FollowupDetailActivity.this);
+		saveFollowupTask.setUrl(HttpPostService.SOAP_URL + "visit_follow_up");
+		saveFollowupTask.getTaskArgs().put("visit_plan_id", String.valueOf(planId));
+		saveFollowupTask.getTaskArgs().put("cust_id", String.valueOf(customerId));
+		saveFollowupTask.getTaskArgs().put("visit_plan_id", String.valueOf(planId));
+		saveFollowupTask.getTaskArgs().put("memo", report.getText().toString());
+		saveFollowupTask.getTaskArgs().put("client_time","'"+CommonUtil.getCurrentTime("yyyy-MM-dd HH:mm:ss")+"'");
 		saveFollowupTask.setListener(FollowupDetailActivity.this);
 		saveFollowupTask.start();
 
@@ -425,23 +433,12 @@ public class FollowupDetailActivity extends BaseDetailActivity implements View.O
 
 			getFollowupInfoTask = null;
 		} else if (saveFollowupTask == task) {
-			boolean success = false;
-			String msg = "";
-			if (task.getResult() != null) {
-				String result = task.getResult().toString();
-				String[] rr = result.split("@");
-				if (rr.length > 0) {
-					success = ("0".equalsIgnoreCase(rr[0]));
-				}
-				if(rr.length > 1){
-					msg = rr[1];
-				}else{
-					msg = "服务器内部错误";
-				}
-			}
-			if (!success) {
-				new AlertDialog.Builder(getInstnce()).setTitle("提示").setMessage(msg).setPositiveButton("确认", null).show();
-				McLogger.getInstance().addLog(MsLogType.TYPE_SYS,MsLogType.ACT_FOLLOWUP,"提交失败;"+msg);
+			NetObject result = ((HttpPostTask) task).getResult();
+			String code = result.stringForKey("code");
+			String message = result.stringForKey("message");
+			if (code.equals("0")) {
+				new AlertDialog.Builder(getInstnce()).setTitle("提示").setMessage(message).setPositiveButton("确认", null).show();
+				McLogger.getInstance().addLog(MsLogType.TYPE_SYS,MsLogType.ACT_FOLLOWUP,"提交失败;"+message);
 			} else {
 				new AlertDialog.Builder(getInstnce()).setTitle("提示").setMessage("随访备注提交成功")
 						.setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -497,22 +494,22 @@ public class FollowupDetailActivity extends BaseDetailActivity implements View.O
 
 	@Override
 	public void onDepartmentItemClick(LinkmanItem view, TextView departmentView) {
-		curLinkmanItem = view;
-		Intent intent = new Intent(FollowupDetailActivity.this, DepartmentListActivity.class);
-		if (view.getDepartmentTag() != null) {
-			intent.putExtra("deptid", ((Department) view.getDepartmentTag()).getId());
-		}
-		startActivityForResult(intent, REQUEST_CODE_DEPARTMENT);
+//		curLinkmanItem = view;
+//		Intent intent = new Intent(FollowupDetailActivity.this, DepartmentListActivity.class);
+//		if (view.getDepartmentTag() != null) {
+//			intent.putExtra("deptid", ((Department) view.getDepartmentTag()).getId());
+//		}
+//		startActivityForResult(intent, REQUEST_CODE_DEPARTMENT);
 	}
 
 	@Override
 	public void onJobTitleItemClick(LinkmanItem view, TextView jobTitleView) {
-		curLinkmanItem = view;
-		Intent intent = new Intent(FollowupDetailActivity.this, JobTitleListActivity.class);
-		if (view.getJobTitleTag() != null) {
-			intent.putExtra("jobtitleid", ((JobTitle) view.getJobTitleTag()).getId());
-		}
-		startActivityForResult(intent, REQUEST_CODE_JOBTITLE);
+//		curLinkmanItem = view;
+//		Intent intent = new Intent(FollowupDetailActivity.this, JobTitleListActivity.class);
+//		if (view.getJobTitleTag() != null) {
+//			intent.putExtra("jobtitleid", ((JobTitle) view.getJobTitleTag()).getId());
+//		}
+//		startActivityForResult(intent, REQUEST_CODE_JOBTITLE);
 	}
 
 	@Override
@@ -553,18 +550,18 @@ public class FollowupDetailActivity extends BaseDetailActivity implements View.O
 		if (!isEditable) {
 			return;
 		}
-		if (v == potencialTextView) {
-			Intent intent = new Intent(FollowupDetailActivity.this, FacilityListActivity.class);
-			intent.putExtra("ids", productdalei_all);
-			startActivityForResult(intent, REQUEST_CODE_POTENCIAL);
-		}
-		if (v == notifyContentTextView) {
-			Intent intent = new Intent(FollowupDetailActivity.this, NotifyTeamListActivity.class);
-			if (notifyContentTextView.getTag() != null) {
-				intent.putExtra("notifyteamid", ((NotifyTeam) notifyContentTextView.getTag()).getId());
-			}
-			startActivityForResult(intent, REQUEST_CODE_NOTIFY);
-		}
+//		if (v == potencialTextView) {
+//			Intent intent = new Intent(FollowupDetailActivity.this, FacilityListActivity.class);
+//			intent.putExtra("ids", productdalei_all);
+//			startActivityForResult(intent, REQUEST_CODE_POTENCIAL);
+//		}
+//		if (v == notifyContentTextView) {
+//			Intent intent = new Intent(FollowupDetailActivity.this, NotifyTeamListActivity.class);
+//			if (notifyContentTextView.getTag() != null) {
+//				intent.putExtra("notifyteamid", ((NotifyTeam) notifyContentTextView.getTag()).getId());
+//			}
+//			startActivityForResult(intent, REQUEST_CODE_NOTIFY);
+//		}
 
 	}
 
@@ -572,24 +569,24 @@ public class FollowupDetailActivity extends BaseDetailActivity implements View.O
 	public void onNameEdit(LinkmanItem view, EditText jobTitleView) {
 		// TODO Auto-generated method stub
 		// Integer tag = (Integer)view.getTag();
-		if (view == linkmanItems.get(linkmanItems.size() - 1)) {
-			createLinkManView();
-		}
+//		if (view == linkmanItems.get(linkmanItems.size() - 1)) {
+//			createLinkManView();
+//		}
 	}
 
 	@Override
 	public void onDeleteItem(LinkmanItem view, Button jobTitleView) {
 		// TODO Auto-generated method stub
-		final LinkmanItem deleleLinkView = view;
-		((BaseActivity) this).showDialog("提示", "确认删除联系人么？", "确认", "取消", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				if (which == -1) {
-					FollowupDetailActivity.this.deleteLinkManView(deleleLinkView);
-				}
-			}
-		});
+//		final LinkmanItem deleleLinkView = view;
+//		((BaseActivity) this).showDialog("提示", "确认删除联系人么？", "确认", "取消", new DialogInterface.OnClickListener() {
+//
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				// TODO Auto-generated method stub
+//				if (which == -1) {
+//					FollowupDetailActivity.this.deleteLinkManView(deleleLinkView);
+//				}
+//			}
+//		});
 	}
 }

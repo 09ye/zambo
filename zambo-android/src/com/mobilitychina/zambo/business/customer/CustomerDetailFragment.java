@@ -124,7 +124,7 @@ public class CustomerDetailFragment extends BaseFragment{
 			}
 		});
 
-		if (planId != null && planId.length() > 0) { // 当有计划ID时，显示按钮"新建"，表明可以新建项目
+		/*if (planId != null && planId.length() > 0) { // 当有计划ID时，显示按钮"新建"，表明可以新建项目
 			CustomImageButton btnAddProject = (CustomImageButton) view.findViewById(R.id.btnAddProject);
 			btnAddProject.setVisibility(View.VISIBLE);
 			btnAddProject.setImageResource(R.drawable.icon_update);
@@ -143,7 +143,7 @@ public class CustomerDetailFragment extends BaseFragment{
 					McLogger.getInstance().addLog(MsLogType.TYPE_SYS,MsLogType.ACT_PROJECT,"新建项目");
 				}
 			});
-		}
+		}*/
 
 		if (custInfo != null && custInfo.getCustAddress() != null && custInfo.getCustAddress().length() > 0) {
 			((TextView) view.findViewById(R.id.tvAddress)).setText(custInfo.getCustAddress());
@@ -151,7 +151,7 @@ public class CustomerDetailFragment extends BaseFragment{
 			((TextView) view.findViewById(R.id.tvAddress)).setText("暂无地址信息");
 		}
 
-		if (custInfo != null && custInfo.getNextPlanVisitDate().length() >= 10) {
+		/*if (custInfo != null && custInfo.getNextPlanVisitDate().length() >= 10) {
 			 try {  
                      //SimpleDateFormat  sdf  =  new  SimpleDateFormat("yyyy-MM-dd");  
                      //String result  =  sdf.format(new Date(custInfo.getNextPlanVisitDate())); 
@@ -165,7 +165,7 @@ public class CustomerDetailFragment extends BaseFragment{
 			
 		} else {
 			((TextView) view.findViewById(R.id.tvNextPlanTime)).setText("暂无计划");
-		}
+		}*/
 	
 
 		btnProjectRecordList = (Button) view.findViewById(R.id.btnProjectRecordList);

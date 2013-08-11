@@ -120,7 +120,6 @@ public class SwitchServerActivity extends BaseDetailActivity implements OnClickL
 								public void onClick(DialogInterface dialog,
 										int which) {
 									  String  definitUrl = definit.getText().toString();
-									  Log.d("SwitchServerActivity", definitUrl);
 									  UserInfoManager.getInstance().setDefinitUrl(definitUrl);
 									  UserInfoManager.getInstance().sync(SwitchServerActivity.this, true);
 									  CommonUtil.switchServer(SwitchServerActivity.this, 2);

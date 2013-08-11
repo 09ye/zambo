@@ -98,6 +98,9 @@ public class AddPlanActivity extends BaseDetailActivity implements ITaskListener
 		this.dismissDialog();
 		NetObject result = ((HttpPostTask)task).getResult();
 		String code = result.stringForKey("code");
+//		String message = result.stringForKey("message").replaceAll("[^\u4E00-\u9FA5]", "");
+		String message = result.stringForKey("message");
+		Log.i("HttpPostTask", "添加计划"+result.toString());
 		if (code.equalsIgnoreCase("0")) { //添加成功
 			this.showDialog("提示", "创建计划成功", new DialogInterface.OnClickListener() { //点击确定后返回前一个页面
 				@Override
@@ -112,10 +115,10 @@ public class AddPlanActivity extends BaseDetailActivity implements ITaskListener
 					finish();
 				}
 			});
-//		} else if (code.equalsIgnoreCase("3")) { //添加成功
-//			this.showDialog("提示", "只能为当天或将来创建计划", null);
 		} else {
-			this.showDialog("提示", "创建计划失败，请稍后重试", null);
+//			if(message==null)
+//				message="操作失败";
+			this.showDialog("提示", message, null);
 		}
 		addPlanTask = null;
 	}
